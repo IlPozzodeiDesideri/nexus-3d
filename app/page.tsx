@@ -1,3 +1,4 @@
+// app/page.tsx - Sincronizzazione Admin
 // app/page.tsx
 'use client'
 
