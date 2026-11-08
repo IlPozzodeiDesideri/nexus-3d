@@ -2,6 +2,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { supabase } from '@/lib/supabaseClient'
 
 export default function AdminPage() {
@@ -124,14 +125,18 @@ export default function AdminPage() {
     if (error) {
       alert('Errore salvataggio: ' + error.message)
     } else {
-      alert('Tutti i dati e le 6 immagini sono stati pubblicati sul sito!')
+      alert('Tutti i dati e le immagini sono stati pubblicati sul sito!')
     }
   }
 
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center px-4 font-sans">
-        <div className="bg-gray-900 border border-gray-800 p-8 rounded-2xl max-w-md w-full shadow-2xl">
+        <div className="bg-gray-900 border border-gray-800 p-8 rounded-2xl max-w-md w-full shadow-2xl relative">
+          {/* Collegamento rapido alla Home anche nella schermata di login */}
+          <div className="absolute top-4 right-4">
+            <Link href="/" className="text-xs text-pink-400 hover:underline">← Torna al sito</Link>
+          </div>
           <h1 className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Admin Nexus-3D</h1>
           {error && <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-lg">{error}</div>}
           <form onSubmit={handleLogin} className="space-y-4">
@@ -153,9 +158,27 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-white p-6 md:p-12 font-sans">
       <div className="max-w-4xl mx-auto space-y-8">
-        <div className="flex justify-between items-center pb-4 border-b border-gray-800">
-          <h1 className="text-3xl font-black bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Pannello Admin e Gestione Immagini</h1>
-          <button onClick={() => setIsAuthenticated(false)} className="px-4 py-2 bg-gray-900 text-gray-300 text-sm font-semibold rounded-lg border border-gray-800">Esci</button>
+        <div className="flex justify-between items-center pb-4 border-b border-gray-800 flex-wrap gap-4">
+          <div>
+            <h1 className="text-3xl font-black bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Pannello Admin e Gestione Immagini</h1>
+            <p className="text-xs text-gray-400 mt-1">Gestione in tempo reale collegata a Supabase</p>
+          </div>
+          
+          {/* Collegamenti rapidi Home e Logout */}
+          <div className="flex items-center gap-3">
+            <Link 
+              href="/" 
+              className="px-4 py-2 bg-pink-600/20 hover:bg-pink-600/30 text-pink-400 text-sm font-semibold rounded-lg border border-pink-500/30 transition flex items-center gap-2"
+            >
+              🏠 Visualizza Sito / Home
+            </Link>
+            <button 
+              onClick={() => setIsAuthenticated(false)} 
+              className="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-gray-300 text-sm font-semibold rounded-lg border border-gray-800 transition"
+            >
+              Esci
+            </button>
+          </div>
         </div>
 
         <form onSubmit={handleSave} className="space-y-8">
