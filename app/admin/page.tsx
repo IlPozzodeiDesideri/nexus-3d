@@ -16,7 +16,9 @@ export default function AdminPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const [saving, setSaving] = useState(false)
+  
+  const [savingDetails, setSavingDetails] = useState(false)
+  const [savingImages, setSavingImages] = useState(false)
   const [uploadingAbout, setUploadingAbout] = useState<string | null>(null)
   const [uploadingGallery, setUploadingGallery] = useState(false)
 
@@ -32,12 +34,10 @@ export default function AdminPage() {
     aboutImage3: '',
   })
 
-  // Lista dinamica delle foto vetrina prodotti (da 0 a 50+)
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([])
 
   useEffect(() => {
     async function loadData() {
-      // 1. Carica configurazione generale
       const { data: configData } = await supabase
         .from('site_config')
         .select('*')
@@ -58,7 +58,6 @@ export default function AdminPage() {
         })
       }
 
-      // 2. Carica galleria prodotti
       const { data: galleryData } = await supabase
         .from('products_gallery')
         .select('*')
@@ -106,7 +105,7 @@ export default function AdminPage() {
     setUploadingAbout(null)
   }
 
-  // Upload nuove foto per la Vetrina Prodotti (Supporta aggiunta multipla o singola)
+  // Upload nuove foto Vetrina Prodotti
   const handleGalleryUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files || files.length === 0) return
@@ -121,8 +120,6 @@ export default function AdminPage() {
       const { error: uploadError } = await supabase.storage.from('images').upload(fileName, file)
       if (!uploadError) {
         const { data: publicUrlData } = supabase.storage.from('images').getPublicUrl(fileName)
-        
-        // Salva direttamente nel database
         await supabase.from('products_gallery').insert({
           image_url: publicUrlData.publicUrl,
           title: file.name.substring(0, 20)
@@ -130,7 +127,6 @@ export default function AdminPage() {
       }
     }
 
-    // Ricarica la galleria aggiornata
     const { data: updatedGallery } = await supabase
       .from('products_gallery')
       .select('*')
@@ -140,7 +136,6 @@ export default function AdminPage() {
     setUploadingGallery(false)
   }
 
-  // Funzione per eliminare una foto della vetrina
   const handleDeleteGalleryItem = async (id: string) => {
     if (!confirm('Sei sicuro di voler eliminare questa foto dalla vetrina prodotti?')) return
 
@@ -152,10 +147,9 @@ export default function AdminPage() {
     }
   }
 
-  const handleSaveGeneral = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setSaving(true)
-
+  // Salvataggio specifico Dati Societari
+  const handleSaveDetails = async () => {
+    setSavingDetails(true)
     const { error } = await supabase.from('site_config').upsert({
       id: 'main',
       company_name: settings.companyName,
@@ -168,13 +162,29 @@ export default function AdminPage() {
       about_image2: settings.aboutImage2,
       about_image3: settings.aboutImage3,
     })
+    setSavingDetails(false)
+    if (error) alert('Errore salvataggio: ' + error.message)
+    else alert('Dati societari salvati con successo!')
+  }
 
-    setSaving(false)
-    if (error) {
-      alert('Errore salvataggio: ' + error.message)
-    } else {
-      alert('Dati societari e foto Chi Siamo aggiornati con successo!')
-    }
+  // Salvataggio specifico Immagini Chi Siamo
+  const handleSaveImages = async () => {
+    setSavingImages(true)
+    const { error } = await supabase.from('site_config').upsert({
+      id: 'main',
+      company_name: settings.companyName,
+      address: settings.address,
+      tax_id: settings.taxId,
+      fiscal_code: settings.fiscalCode,
+      email: settings.email,
+      phone: settings.phone,
+      about_image: settings.aboutImage,
+      about_image2: settings.aboutImage2,
+      about_image3: settings.aboutImage3,
+    })
+    setSavingImages(false)
+    if (error) alert('Errore salvataggio: ' + error.message)
+    else alert('Immagini della sezione Chi Siamo salvate con successo!')
   }
 
   if (!isAuthenticated) {
@@ -221,62 +231,73 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Dati Societari & Chi Siamo */}
-        <form onSubmit={handleSaveGeneral} className="space-y-8">
-          <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
-            <h2 className="text-xl font-bold text-cyan-400">Dati Societari</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">Nome Azienda</label>
-                <input type="text" name="companyName" value={settings.companyName} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">Indirizzo</label>
-                <input type="text" name="address" value={settings.address} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">P.IVA</label>
-                <input type="text" name="taxId" value={settings.taxId} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">Codice Fiscale</label>
-                <input type="text" name="fiscalCode" value={settings.fiscalCode} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">Email</label>
-                <input type="email" name="email" value={settings.email} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">Telefono</label>
-                <input type="text" name="phone" value={settings.phone} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm" />
-              </div>
+        {/* Blocco 1: Dati Societari con il suo pulsante dedicato */}
+        <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
+          <h2 className="text-xl font-bold text-cyan-400">Dati Societari</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-1">Nome Azienda</label>
+              <input type="text" name="companyName" value={settings.companyName} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-1">Indirizzo</label>
+              <input type="text" name="address" value={settings.address} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-1">P.IVA</label>
+              <input type="text" name="taxId" value={settings.taxId} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-1">Codice Fiscale</label>
+              <input type="text" name="fiscalCode" value={settings.fiscalCode} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-1">Email</label>
+              <input type="email" name="email" value={settings.email} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-1">Telefono</label>
+              <input type="text" name="phone" value={settings.phone} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm" />
             </div>
           </div>
-
-          <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
-            <h2 className="text-xl font-bold text-cyan-400">Immagini Sezione "Chi Siamo" (3 Foto)</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {['aboutImage', 'aboutImage2', 'aboutImage3'].map((key, idx) => (
-                <div key={key}>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Foto {idx + 1} Chi Siamo</label>
-                  <input type="file" accept="image/*" onChange={(e) => handleAboutUpload(e, key)} className="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-cyan-600 file:text-white hover:file:bg-cyan-500 cursor-pointer" />
-                  {uploadingAbout === key && <p className="text-xs text-cyan-400 mt-1">Caricamento...</p>}
-                  {(settings as any)[key] && (
-                    <div className="mt-3 h-40 w-full bg-slate-950 rounded-lg border border-slate-800 overflow-hidden flex items-center justify-center p-2">
-                      <img src={(settings as any)[key]} alt={`About ${idx + 1}`} className="max-h-full max-w-full object-contain" />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <button type="submit" disabled={saving} className="w-full py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl transition shadow-lg text-lg">
-            {saving ? 'Salvataggio...' : 'Salva Dati Societari e Chi Siamo'}
+          <button 
+            type="button" 
+            onClick={handleSaveDetails} 
+            disabled={savingDetails} 
+            className="w-full py-3.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl transition shadow-md text-sm cursor-pointer disabled:opacity-50"
+          >
+            {savingDetails ? 'Salvataggio Dati...' : '💾 Salva Dati'}
           </button>
-        </form>
+        </div>
 
-        {/* Gestione Vetrina Prodotti Illimitata (Da 0 a 50+) */}
+        {/* Blocco 2: Immagini Chi Siamo con il suo pulsante dedicato */}
+        <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
+          <h2 className="text-xl font-bold text-cyan-400">Immagini Sezione "Chi Siamo" (3 Foto)</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {['aboutImage', 'aboutImage2', 'aboutImage3'].map((key, idx) => (
+              <div key={key}>
+                <label className="block text-sm font-medium text-slate-300 mb-2">Foto {idx + 1} Chi Siamo</label>
+                <input type="file" accept="image/*" onChange={(e) => handleAboutUpload(e, key)} className="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-cyan-600 file:text-white hover:file:bg-cyan-500 cursor-pointer" />
+                {uploadingAbout === key && <p className="text-xs text-cyan-400 mt-1">Caricamento...</p>}
+                {(settings as any)[key] && (
+                  <div className="mt-3 h-40 w-full bg-slate-950 rounded-lg border border-slate-800 overflow-hidden flex items-center justify-center p-2">
+                    <img src={(settings as any)[key]} alt={`About ${idx + 1}`} className="max-h-full max-w-full object-contain" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <button 
+            type="button" 
+            onClick={handleSaveImages} 
+            disabled={savingImages} 
+            className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition shadow-md text-sm cursor-pointer disabled:opacity-50"
+          >
+            {savingImages ? 'Salvataggio Immagini...' : '🖼️ Salva Immagini'}
+          </button>
+        </div>
+
+        {/* Blocco 3: Vetrina Prodotti Dinamica */}
         <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
           <div className="flex justify-between items-center flex-wrap gap-4">
             <div>
@@ -308,7 +329,7 @@ export default function AdminPage() {
                     <span className="text-xs text-slate-400 truncate max-w-[100px]">{item.title}</span>
                     <button 
                       onClick={() => handleDeleteGalleryItem(item.id)}
-                      className="px-2.5 py-1.5 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white text-xs font-bold rounded-lg border border-red-500/30 transition"
+                      className="px-2.5 py-1.5 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white text-xs font-bold rounded-lg border border-red-500/30 transition cursor-pointer"
                     >
                       🗑️ Elimina
                     </button>
