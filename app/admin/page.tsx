@@ -9,6 +9,7 @@ type GalleryItem = {
   id: string
   image_url: string
   title: string
+  price: number
 }
 
 export default function AdminPage() {
@@ -21,7 +22,7 @@ export default function AdminPage() {
   const [savingImages, setSavingImages] = useState(false)
   const [uploadingAbout, setUploadingAbout] = useState<string | null>(null)
   const [uploadingGallery, setUploadingGallery] = useState(false)
-  const [updatingTitleId, setUpdatingTitleId] = useState<string | null>(null)
+  const [updatingItem, setUpdatingItem] = useState<string | null>(null)
 
   const [settings, setSettings] = useState({
     companyName: 'Nexus-3D',
@@ -121,7 +122,8 @@ export default function AdminPage() {
         const { data: publicUrlData } = supabase.storage.from('images').getPublicUrl(fileName)
         await supabase.from('products_gallery').insert({
           image_url: publicUrlData.publicUrl,
-          title: file.name.replace(/\.[^/.]+$/, "") // Nome del file senza estensione come titolo iniziale
+          title: file.name.replace(/\.[^/.]+$/, ""),
+          price: 0.00
         })
       }
     }
@@ -135,26 +137,29 @@ export default function AdminPage() {
     setUploadingGallery(false)
   }
 
-  // Modifica locale del nome foto nello stato
-  const handleTitleChange = (id: string, newTitle: string) => {
+  // Modifica locale di titolo e prezzo nello stato
+  const handleItemFieldChange = (id: string, field: 'title' | 'price', value: any) => {
     setGalleryItems(prev =>
-      prev.map(item => item.id === id ? { ...item, title: newTitle } : item)
+      prev.map(item => item.id === id ? { ...item, [field]: value } : item)
     )
   }
 
-  // Salvataggio del nuovo nome su Supabase
-  const handleSaveTitle = async (id: string, newTitle: string) => {
-    setUpdatingTitleId(id)
+  // Salvataggio titolo e prezzo su Supabase
+  const handleSaveItem = async (id: string, title: string, price: number) => {
+    setUpdatingItem(id)
     const { error } = await supabase
       .from('products_gallery')
-      .update({ title: newTitle })
+      .update({ 
+        title: title,
+        price: parseFloat(price.toString()) || 0 
+      })
       .eq('id', id)
 
-    setUpdatingTitleId(null)
+    setUpdatingItem(null)
     if (error) {
-      alert('Errore durante il salvataggio del nome: ' + error.message)
+      alert('Errore durante il salvataggio: ' + error.message)
     } else {
-      alert('Nome della foto aggiornato con successo!')
+      alert('Dati del prodotto aggiornati con successo!')
     }
   }
 
@@ -315,12 +320,12 @@ export default function AdminPage() {
           </button>
         </div>
 
-        {/* Blocco 3: Vetrina Prodotti con Modifica Nome Foto */}
+        {/* Blocco 3: Vetrina Prodotti con Titolo e Prezzo (€) */}
         <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-4 w-full">
           <div className="flex flex-col gap-3 w-full">
             <div>
               <h2 className="text-sm font-bold text-cyan-400 uppercase tracking-wider">Vetrina Prodotti ({galleryItems.length})</h2>
-              <p className="text-[11px] text-slate-400">Gestisci foto e rinomina i modelli 3D</p>
+              <p className="text-[11px] text-slate-400">Gestisci titolo e prezzo in Euro</p>
             </div>
             <label className="w-full text-center py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs rounded-lg cursor-pointer shadow-md block">
               <span>➕ Aggiungi Nuove Foto</span>
@@ -342,23 +347,37 @@ export default function AdminPage() {
                     <img src={item.image_url} alt={item.title} className="max-h-full max-w-full object-contain" />
                   </div>
                   
-                  {/* Modifica del Titolo / Nome Foto */}
-                  <div className="space-y-2">
-                    <label className="block text-[11px] text-slate-400 font-medium">Nome / Titolo Foto:</label>
-                    <div className="flex items-center gap-2">
+                  {/* Nome Foto e Prezzo */}
+                  <div className="space-y-3">
+                    <div>
+                      <label className="block text-[11px] text-slate-400 font-medium mb-1">Nome / Titolo Model 3D:</label>
                       <input 
                         type="text" 
                         value={item.title} 
-                        onChange={(e) => handleTitleChange(item.id, e.target.value)}
-                        className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-white text-xs focus:outline-none focus:border-cyan-500"
+                        onChange={(e) => handleItemFieldChange(item.id, 'title', e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-white text-xs focus:outline-none focus:border-cyan-500"
                       />
-                      <button 
-                        onClick={() => handleSaveTitle(item.id, item.title)}
-                        disabled={updatingTitleId === item.id}
-                        className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition cursor-pointer disabled:opacity-50"
-                      >
-                        {updatingTitleId === item.id ? '...' : '💾 OK'}
-                      </button>
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] text-slate-400 font-medium mb-1">Prezzo (€):</label>
+                      <div className="flex items-center gap-2">
+                        <span className="text-slate-400 font-mono text-xs">€</span>
+                        <input 
+                          type="number" 
+                          step="0.01"
+                          value={item.price || 0} 
+                          onChange={(e) => handleItemFieldChange(item.id, 'price', e.target.value)}
+                          className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-white text-xs focus:outline-none focus:border-cyan-500 font-mono"
+                        />
+                        <button 
+                          onClick={() => handleSaveItem(item.id, item.title, item.price)}
+                          disabled={updatingItem === item.id}
+                          className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition cursor-pointer disabled:opacity-50"
+                        >
+                          {updatingItem === item.id ? '...' : '💾 OK'}
+                        </button>
+                      </div>
                     </div>
                   </div>
 
