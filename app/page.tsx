@@ -9,7 +9,7 @@ type Language = 'it' | 'en' | 'es' | 'fr' | 'de' | 'ar'
 
 export default function Home() {
   const [lang, setLang] = useState<Language>('it')
-  const [selectedImage, setSelectedImage] = useState<string | null>(null) // Stato per Lightbox ingrandimento
+  const [selectedImage, setSelectedImage] = useState<string | null>(null) // Lightbox per ingrandire
 
   const [siteConfig, setSiteConfig] = useState({
     companyName: 'Nexus-3D',
@@ -104,7 +104,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sezione Chi Siamo con 3 Foto Cliccabili */}
+      {/* Sezione Chi Siamo con 3 Foto Intere */}
       <section id="about" className="py-24 px-6 border-t border-gray-900 bg-gray-950">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
@@ -113,48 +113,48 @@ export default function Home() {
             <p className="mt-4 text-gray-400">{text.aboutDesc}</p>
           </div>
 
-          {/* Griglia 3 Foto Chi Siamo */}
+          {/* Griglia 3 Foto con object-contain per mostrarle intere */}
           <div className="grid grid-cols-2 gap-4">
             <div 
               onClick={() => siteConfig.aboutImage && setSelectedImage(siteConfig.aboutImage)} 
-              className="h-56 col-span-2 rounded-2xl border border-gray-800 overflow-hidden bg-gray-900 cursor-pointer group relative"
+              className="h-64 col-span-2 rounded-2xl border border-gray-800 overflow-hidden bg-gray-900 cursor-pointer group relative flex items-center justify-center p-2"
             >
               {siteConfig.aboutImage ? (
                 <>
-                  <img src={siteConfig.aboutImage} alt="Chi Siamo 1" className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                  <img src={siteConfig.aboutImage} alt="Chi Siamo 1" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-semibold">🔍 Ingrandisci</div>
                 </>
-              ) : <div className="h-full flex items-center justify-center text-gray-600">{text.showroomText} 1</div>}
+              ) : <div className="text-gray-600">{text.showroomText} 1</div>}
             </div>
 
             <div 
               onClick={() => siteConfig.aboutImage2 && setSelectedImage(siteConfig.aboutImage2)} 
-              className="h-40 rounded-xl border border-gray-800 overflow-hidden bg-gray-900 cursor-pointer group relative"
+              className="h-44 rounded-xl border border-gray-800 overflow-hidden bg-gray-900 cursor-pointer group relative flex items-center justify-center p-2"
             >
               {siteConfig.aboutImage2 ? (
                 <>
-                  <img src={siteConfig.aboutImage2} alt="Chi Siamo 2" className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                  <img src={siteConfig.aboutImage2} alt="Chi Siamo 2" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-semibold">🔍 Ingrandisci</div>
                 </>
-              ) : <div className="h-full flex items-center justify-center text-gray-600 text-xs">{text.showroomText} 2</div>}
+              ) : <div className="text-gray-600 text-xs">{text.showroomText} 2</div>}
             </div>
 
             <div 
               onClick={() => siteConfig.aboutImage3 && setSelectedImage(siteConfig.aboutImage3)} 
-              className="h-40 rounded-xl border border-gray-800 overflow-hidden bg-gray-900 cursor-pointer group relative"
+              className="h-44 rounded-xl border border-gray-800 overflow-hidden bg-gray-900 cursor-pointer group relative flex items-center justify-center p-2"
             >
               {siteConfig.aboutImage3 ? (
                 <>
-                  <img src={siteConfig.aboutImage3} alt="Chi Siamo 3" className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                  <img src={siteConfig.aboutImage3} alt="Chi Siamo 3" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-semibold">🔍 Ingrandisci</div>
                 </>
-              ) : <div className="h-full flex items-center justify-center text-gray-600 text-xs">{text.showroomText} 3</div>}
+              ) : <div className="text-gray-600 text-xs">{text.showroomText} 3</div>}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Vetrina Prodotti Cliccabili */}
+      {/* Vetrina Prodotti con Immagini Intere */}
       <section id="products" className="py-24 px-6 border-t border-gray-900 bg-gray-900/20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -165,11 +165,11 @@ export default function Home() {
             <div className="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
               <div 
                 onClick={() => siteConfig.p1Image && setSelectedImage(siteConfig.p1Image)}
-                className="h-64 bg-gray-800 overflow-hidden flex items-center justify-center cursor-pointer group relative"
+                className="h-64 bg-gray-950 overflow-hidden flex items-center justify-center cursor-pointer group relative p-4"
               >
                 {siteConfig.p1Image ? (
                   <>
-                    <img src={siteConfig.p1Image} alt="P1" className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                    <img src={siteConfig.p1Image} alt="P1" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-semibold">🔍 Ingrandisci</div>
                   </>
                 ) : <span className="text-gray-600">[ {text.p1Title} ]</span>}
@@ -180,11 +180,11 @@ export default function Home() {
             <div className="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
               <div 
                 onClick={() => siteConfig.p2Image && setSelectedImage(siteConfig.p2Image)}
-                className="h-64 bg-gray-800 overflow-hidden flex items-center justify-center cursor-pointer group relative"
+                className="h-64 bg-gray-950 overflow-hidden flex items-center justify-center cursor-pointer group relative p-4"
               >
                 {siteConfig.p2Image ? (
                   <>
-                    <img src={siteConfig.p2Image} alt="P2" className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                    <img src={siteConfig.p2Image} alt="P2" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-semibold">🔍 Ingrandisci</div>
                   </>
                 ) : <span className="text-gray-600">[ {text.p2Title} ]</span>}
@@ -195,11 +195,11 @@ export default function Home() {
             <div className="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
               <div 
                 onClick={() => siteConfig.p3Image && setSelectedImage(siteConfig.p3Image)}
-                className="h-64 bg-gray-800 overflow-hidden flex items-center justify-center cursor-pointer group relative"
+                className="h-64 bg-gray-950 overflow-hidden flex items-center justify-center cursor-pointer group relative p-4"
               >
                 {siteConfig.p3Image ? (
                   <>
-                    <img src={siteConfig.p3Image} alt="P3" className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                    <img src={siteConfig.p3Image} alt="P3" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-semibold">🔍 Ingrandisci</div>
                   </>
                 ) : <span className="text-gray-600">[ {text.p3Title} ]</span>}
