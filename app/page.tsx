@@ -56,256 +56,273 @@ export default function Home() {
 
   const t: Record<Language, any> = {
     it: {
-      navHome: 'Home', navAbout: 'Chi Siamo', navProducts: 'Prodotti & Servizi', navContact: 'Contatti', adminArea: 'Area Admin', requestQuote: 'Richiedi Preventivo', badge: 'Stampe 3D di Alta Qualità • Design & Artigianato', heroTitle1: 'Porta le tue idee', heroTitle2: 'nella realtà tridimensionale', heroDesc: `Realizziamo prototipi, action figure, statue dettagliate e oggetti di design unici stampati in 3D con cura artigianale da ${siteConfig.companyName}.`, exploreProducts: 'Scopri i Prodotti', contactUs: 'Contattaci', aboutTag: 'Chi Siamo', aboutTitle: 'Innovazione e passione per il dettaglio', aboutDesc: `${siteConfig.companyName} nasce dalla passione per la tecnologia di stampa tridimensionale e la modellazione avanzata.`, yearsExp: '+5 Anni', yearsExpDesc: 'Nel settore della stampa 3D', craftsmanship: '100%', craftsmanshipDesc: 'Finitura artigianale', showroomText: '[ Foto Laboratorio ]', productsTag: 'Vetrina & Servizi', productsTitle: 'I Nostri Prodotti in Evidenza', productsDesc: 'Soluzioni su misura e oggetti da collezione stampati in 3D.', p1Title: 'Action Figure Anime', p1Desc: 'Stampa 3D ad altissima risoluzione con dettagli rifiniti e dipinti a mano.', p2Title: 'Statua da Collezione', p2Desc: 'Design personalizzato per pezzi unici da esposizione.', p3Title: 'Prototipazione Industriale', p3Desc: 'Componenti tecnici e prototipi funzionali in PLA, ABS e resine speciali.', moreInfo: 'Richiedi informazioni →', contactTag: 'Contattaci', contactTitle: 'Parla con il nostro team', contactDesc: 'Hai un progetto in mente o desideri maggiori informazioni sui nostri servizi di stampa 3D? Scrivici.', formName: 'Nome', formEmail: 'Email', formMessage: 'Messaggio', formSubmit: 'Invia Messaggio', addressLabel: 'Indirizzo:', emailLabel: 'Email:', phoneLabel: 'Telefono:', fiscalLabel: 'Dati Fiscali:', rights: 'Tutti i diritti riservati.'
+      navHome: '01 // Home', navAbout: '02 // Chi Siamo', navProducts: '03 // Vetrina 3D', navContact: '04 // Contatti', adminArea: 'Pannello Controllo', requestQuote: 'Richiedi Progetto', badge: 'NEXT-GEN 3D PRINTING & ENGINEERING', heroTitle1: 'Architettura Tridimensionale', heroTitle2: 'e Prototipazione Avanzata', heroDesc: `Trasformiamo geometrie digitali in manufatti fisici ad alta precisione. Prototipi, statue da collezione e componenti tecnici stampati da ${siteConfig.companyName}.`, exploreProducts: 'Esplora Modelli', contactUs: 'Avvia Progetto', aboutTag: 'LABORATORIO TECH', aboutTitle: 'Ingegnerizzazione della Forma e Precisione Micron', aboutDesc: `${siteConfig.companyName} unisce sistemi di stampa 3D a resina e filamento ad alta risoluzione con finitura artigianale e controllo qualità rigoroso.`, yearsExp: '+5 ANNI', yearsExpDesc: 'R&D Stampa Tridimensionale', craftsmanship: '0.05 MM', craftsmanshipDesc: 'Risoluzione Strati', showroomText: '[ SCANSIONE LAB ]', productsTag: 'PORTFOLIO 3D', productsTitle: 'Modelli & Moduli In Evidenza', productsDesc: 'Soluzioni personalizzate realizzate con polimeri ad elevate prestazioni.', p1Title: 'Anime Action Figures', p1Desc: 'Stampa resina UV ad altissima definizione con micro-dettagli rifiniti a mano.', p2Title: 'Statua da Collezione', p2Desc: 'Scultura digitale renderizzata e stampata in grande formato.', p3Title: 'Prototipazione Industriale', p3Desc: 'Componenti meccanici funzionali in PLA+, ABS e resine ingegneristiche.', moreInfo: 'Dettagli Tecnici →', contactTag: 'COMMUNICATION HUB', contactTitle: 'Inizia il tuo Progetto 3D', contactDesc: 'Invia le tue specifiche tecniche o richiedi una consulenza personalizzata con i nostri specialisti.', formName: 'Nome / Azienda', formEmail: 'Email di contatto', formMessage: 'Specifiche Progetto', formSubmit: 'Invia Richiesta Tecnica', addressLabel: 'HQ Location:', emailLabel: 'Direct Mail:', phoneLabel: 'Supporto Line:', fiscalLabel: 'ID Fiscale:', rights: 'All System Rights Reserved.'
     },
-    en: { navHome: 'Home', navAbout: 'About Us', navProducts: 'Products & Services', navContact: 'Contact', adminArea: 'Admin Area', requestQuote: 'Request Quote', badge: 'High Quality 3D Printing • Design & Craftsmanship', heroTitle1: 'Bring your ideas', heroTitle2: 'into three-dimensional reality', heroDesc: `We create prototypes, action figures, detailed statues, and unique design objects 3D printed with craftsmanship by ${siteConfig.companyName}.`, exploreProducts: 'Explore Products', contactUs: 'Contact Us', aboutTag: 'About Us', aboutTitle: 'Innovation and passion for detail', aboutDesc: `${siteConfig.companyName} was born from a passion for 3D printing technology and advanced modeling.`, yearsExp: '+5 Years', yearsExpDesc: 'In 3D printing industry', craftsmanship: '100%', craftsmanshipDesc: 'Handcrafted finish', showroomText: '[ Lab Photo ]', productsTag: 'Showcase & Services', productsTitle: 'Featured Products', productsDesc: 'Custom solutions and 3D printed collectibles.', p1Title: 'Anime Action Figures', p1Desc: 'Ultra-high resolution 3D printing with hand-painted details.', p2Title: 'Collectible Statues', p2Desc: 'Custom design for unique display pieces.', p3Title: 'Industrial Prototyping', p3Desc: 'Technical components and functional prototypes.', moreInfo: 'Request details →', contactTag: 'Contact Us', contactTitle: 'Speak with our team', contactDesc: 'Have a project in mind? Write to us.', formName: 'Name', formEmail: 'Email', formMessage: 'Message', formSubmit: 'Send Message', addressLabel: 'Address:', emailLabel: 'Email:', phoneLabel: 'Phone:', fiscalLabel: 'Tax Info:', rights: 'All rights reserved.' },
-    es: { navHome: 'Inicio', navAbout: 'Quiénes Somos', navProducts: 'Productos', navContact: 'Contacto', adminArea: 'Admin', requestQuote: 'Presupuesto', badge: 'Impresión 3D', heroTitle1: 'Lleva tus ideas', heroTitle2: 'a la realidad', heroDesc: `Creamos objetos con ${siteConfig.companyName}.`, exploreProducts: 'Productos', contactUs: 'Contacto', aboutTag: 'Nosotros', aboutTitle: 'Innovación', aboutDesc: `${siteConfig.companyName}`, yearsExp: '+5 Años', yearsExpDesc: 'Experiencia', craftsmanship: '100%', craftsmanshipDesc: 'Artesanal', showroomText: '[ Taller ]', productsTag: 'Servicios', productsTitle: 'Productos', productsDesc: 'Soluciones', p1Title: 'Figuras', p1Desc: 'Alta resolución', p2Title: 'Estatua', p2Desc: 'Colección', p3Title: 'Prototipo', p3Desc: 'Industrial', moreInfo: 'Info →', contactTag: 'Contacto', contactTitle: 'Hablemos', contactDesc: 'Escríbenos', formName: 'Nombre', formEmail: 'Email', formMessage: 'Mensaje', formSubmit: 'Enviar', addressLabel: 'Dirección:', emailLabel: 'Email:', phoneLabel: 'Teléfono:', fiscalLabel: 'Fiscal:', rights: 'Derechos reservados.' },
-    fr: { navHome: 'Accueil', navAbout: 'À Propos', navProducts: 'Produits', navContact: 'Contact', adminArea: 'Admin', requestQuote: 'Devis', badge: 'Impression 3D', heroTitle1: 'Donnez vie', heroTitle2: 'à vos idées', heroDesc: `Créations par ${siteConfig.companyName}.`, exploreProducts: 'Produits', contactUs: 'Contact', aboutTag: 'À Propos', aboutTitle: 'Innovation', aboutDesc: `${siteConfig.companyName}`, yearsExp: '+5 Ans', yearsExpDesc: 'Expérience', craftsmanship: '100%', craftsmanshipDesc: 'Artisanal', showroomText: '[ Labo ]', productsTag: 'Services', productsTitle: 'Produits', productsDesc: 'Solutions', p1Title: 'Figurines', p1Desc: 'Haute résolution', p2Title: 'Statue', p2Desc: 'Collection', p3Title: 'Prototypage', p3Desc: 'Industriel', moreInfo: 'Info →', contactTag: 'Contact', contactTitle: 'Équipe', contactDesc: 'Écrivez-nous', formName: 'Nom', formEmail: 'E-mail', formMessage: 'Message', formSubmit: 'Envoyer', addressLabel: 'Adresse :', emailLabel: 'E-mail :', phoneLabel: 'Téléphone :', fiscalLabel: 'Fiscal :', rights: 'Tous droits réservés.' },
-    de: { navHome: 'Startseite', navAbout: 'Über uns', navProducts: 'Produkte', navContact: 'Kontakt', adminArea: 'Admin', requestQuote: 'Angebot', badge: '3D-Druck', heroTitle1: 'Bringen Sie', heroTitle2: 'Ideen real', heroDesc: `Erstellt von ${siteConfig.companyName}.`, exploreProducts: 'Produkte', contactUs: 'Kontakt', aboutTag: 'Über uns', aboutTitle: 'Innovation', aboutDesc: `${siteConfig.companyName}`, yearsExp: '+5 Jahre', yearsExpDesc: 'Erfahrung', craftsmanship: '100%', craftsmanshipDesc: 'Handarbeit', showroomText: '[ Labor ]', productsTag: 'Dienste', productsTitle: 'Produkte', productsDesc: 'Lösungen', p1Title: 'Figuren', p1Desc: 'Hohe Auflösung', p2Title: 'Statue', p2Desc: 'Sammlung', p3Title: 'Prototyp', p3Desc: 'Industriell', moreInfo: 'Infos →', contactTag: 'Kontakt', contactTitle: 'Team', contactDesc: 'Schreiben Sie uns', formName: 'Name', formEmail: 'E-Mail', formMessage: 'Nachricht', formSubmit: 'Senden', addressLabel: 'Adresse:', emailLabel: 'E-Mail:', phoneLabel: 'Telefon:', fiscalLabel: 'Steuer:', rights: 'Alle Rechte vorbehalten.' },
-    ar: { navHome: 'الرئيسية', navAbout: 'من نحن', navProducts: 'المنتجات', navContact: 'اتصل بنا', navAdmin: 'التحكم', requestQuote: 'طلب سعر', badge: 'طباعة 3د', heroTitle1: 'اجلب أفكارك', heroTitle2: 'للواقع', heroDesc: `بواسطة ${siteConfig.companyName}.`, exploreProducts: 'المنتجات', contactUs: 'اتصل بنا', aboutTag: 'من نحن', aboutTitle: 'ابتكار', aboutDesc: `${siteConfig.companyName}`, yearsExp: '+5 سنوات', yearsExpDesc: 'خبرة', craftsmanship: '100%', craftsmanshipDesc: 'يدوي', showroomText: '[ معرض ]', productsTag: 'خدمات', productsTitle: 'منتجات', productsDesc: 'حلول', p1Title: 'مجسمات', p1Desc: 'دقة عالية', p2Title: 'تمثال', p2Desc: 'تحصيل', p3Title: 'نموذج', p3Desc: 'صناعي', moreInfo: 'تفاصيل ←', contactTag: 'اتصل', contactTitle: 'تحدث معنا', contactDesc: 'راسلنا', formName: 'الاسم', formEmail: 'البريد', formMessage: 'الرسالة', formSubmit: 'إرسال', addressLabel: 'العنوان:', emailLabel: 'البريد:', phoneLabel: 'الهاتف:', fiscalLabel: 'الضريبي:', rights: 'جميع الحقوق محفوظة.' }
+    en: { navHome: '01 // Home', navAbout: '02 // About Us', navProducts: '03 // 3D Showcase', navContact: '04 // Contact', adminArea: 'Control Panel', requestQuote: 'Start Project', badge: 'NEXT-GEN 3D PRINTING & ENGINEERING', heroTitle1: 'Three-Dimensional', heroTitle2: 'Advanced Prototyping', heroDesc: `Transforming digital geometry into high-precision physical artifacts by ${siteConfig.companyName}.`, exploreProducts: 'Explore Models', contactUs: 'Start Project', aboutTag: 'TECH LAB', aboutTitle: 'Shape Engineering & Micron Precision', aboutDesc: `${siteConfig.companyName} combines resin and filament 3D printing with strict quality control.`, yearsExp: '+5 YEARS', yearsExpDesc: '3D Printing R&D', craftsmanship: '0.05 MM', craftsmanshipDesc: 'Layer Precision', showroomText: '[ LAB SCAN ]', productsTag: '3D PORTFOLIO', productsTitle: 'Featured Models & Modules', productsDesc: 'Custom solutions engineered with high-performance polymers.', p1Title: 'Anime Action Figures', p1Desc: 'Ultra-high definition UV resin print with hand-finished details.', p2Title: 'Collectible Statues', p2Desc: 'Large-scale digital sculpture 3D printed.', p3Title: 'Industrial Prototyping', p3Desc: 'Functional engineering components in ABS, PLA+, and tough resins.', moreInfo: 'Tech Specs →', contactTag: 'COMMUNICATION HUB', contactTitle: 'Initiate Your 3D Project', contactDesc: 'Submit your technical files or project specifications to our engineering team.', formName: 'Name / Company', formEmail: 'Contact Email', formMessage: 'Project Specs', formSubmit: 'Submit Request', addressLabel: 'HQ Location:', emailLabel: 'Direct Mail:', phoneLabel: 'Support Line:', fiscalLabel: 'Fiscal ID:', rights: 'All System Rights Reserved.' },
+    es: { navHome: '01 // Inicio', navAbout: '02 // Nosotros', navProducts: '03 // Catálogo 3D', navContact: '04 // Contacto', adminArea: 'Panel Admin', requestQuote: 'Presupuesto', badge: 'TECNOLOGÍA 3D AVANZADA', heroTitle1: 'Arquitectura 3D', heroTitle2: 'Prototipado de Alta Precisión', heroDesc: `Transformamos modelos digitales con ${siteConfig.companyName}.`, exploreProducts: 'Ver Modelos', contactUs: 'Contacto', aboutTag: 'LABORATORIO', aboutTitle: 'Precisión y Diseño 3D', aboutDesc: `${siteConfig.companyName} laboratorio de fabricación aditiva.`, yearsExp: '+5 AÑOS', yearsExpDesc: 'Experiencia 3D', craftsmanship: '0.05 MM', craftsmanshipDesc: 'Precisión', showroomText: '[ ESCÁNER LAB ]', productsTag: 'PORTAFOLIO', productsTitle: 'Productos Destacados', productsDesc: 'Soluciones personalizadas en polímeros.', p1Title: 'Figuras Anime', p1Desc: 'Resina UV de alta definición.', p2Title: 'Estatuas', p2Desc: 'Escultura digital.', p3Title: 'Prototipos', p3Desc: 'Piezas funcionales.', moreInfo: 'Especificaciones →', contactTag: 'CONTACTO', contactTitle: 'Inicia tu Proyecto', contactDesc: 'Envíanos tus especificaciones.', formName: 'Nombre', formEmail: 'Email', formMessage: 'Proyecto', formSubmit: 'Enviar', addressLabel: 'Ubicación:', emailLabel: 'Email:', phoneLabel: 'Teléfono:', fiscalLabel: 'ID Fiscal:', rights: 'Derechos reservados.' },
+    fr: { navHome: '01 // Accueil', navAbout: '02 // À Propos', navProducts: '03 // Vitrine 3D', navContact: '04 // Contact', adminArea: 'Panneau Admin', requestQuote: 'Devis Projet', badge: 'IMPRESSION 3D HAUTE PRÉCISION', heroTitle1: 'Architecture 3D', heroTitle2: 'Prototypage Avancé', heroDesc: `Création de pièces physiques de précision par ${siteConfig.companyName}.`, exploreProducts: 'Explorer', contactUs: 'Contact', aboutTag: 'LABOTECH', aboutTitle: 'Ingénierie des Formes', aboutDesc: `${siteConfig.companyName} fabrication additive.`, yearsExp: '+5 ANS', yearsExpDesc: 'R&D Impression 3D', craftsmanship: '0.05 MM', craftsmanshipDesc: 'Précision', showroomText: '[ SCAN LABO ]', productsTag: 'PORTFOLIO', productsTitle: 'Produits Phares', productsDesc: 'Solutions sur mesure.', p1Title: 'Figurines', p1Desc: 'Résine UV haute précision.', p2Title: 'Statue', p2Desc: 'Grand format.', p3Title: 'Prototypage', p3Desc: 'Composants techniques.', moreInfo: 'Détails →', contactTag: 'CONTACT', contactTitle: 'Démarrer un Projet', contactDesc: 'Écrivez-nous.', formName: 'Nom', formEmail: 'E-mail', formMessage: 'Message', formSubmit: 'Envoyer', addressLabel: 'Adresse :', emailLabel: 'E-mail :', phoneLabel: 'Téléphone :', fiscalLabel: 'Fiscal :', rights: 'Tous droits réservés.' },
+    de: { navHome: '01 // Start', navAbout: '02 // Über uns', navProducts: '03 // 3D Katalog', navContact: '04 // Kontakt', adminArea: 'Admin Control', requestQuote: 'Projekt Starten', badge: 'ADVANCED 3D PRINTING', heroTitle1: '3D Architektur', heroTitle2: 'Präzisions-Prototyping', heroDesc: `Digitale Geometrien in physische Objekte von ${siteConfig.companyName}.`, exploreProducts: 'Modelle', contactUs: 'Kontakt', aboutTag: 'TECH LAB', aboutTitle: 'Mikron Präzision', aboutDesc: `${siteConfig.companyName} additive Fertigung.`, yearsExp: '+5 JAHRE', yearsExpDesc: 'Erfahrung', craftsmanship: '0.05 MM', craftsmanshipDesc: 'Auflösung', showroomText: '[ LAB SCAN ]', productsTag: 'PORTFOLIO', productsTitle: 'High-Tech Produkte', productsDesc: 'Polymere 3D-Lösungen.', p1Title: 'Figuren', p1Desc: 'UV-Harzdruck.', p2Title: 'Statue', p2Desc: 'Digitale Skulptur.', p3Title: 'Prototypen', p3Desc: 'Funktionsbauteile.', moreInfo: 'Tech-Specs →', contactTag: 'KONTAKT', contactTitle: 'Projekt Starten', contactDesc: 'Senden Sie Ihre Daten.', formName: 'Name', formEmail: 'E-Mail', formMessage: 'Nachricht', formSubmit: 'Senden', addressLabel: 'Adresse:', emailLabel: 'E-Mail:', phoneLabel: 'Telefon:', fiscalLabel: 'Steuer:', rights: 'Alle Rechte vorbehalten.' },
+    ar: { navHome: '01 // الرئيسية', navAbout: '02 // من نحن', navProducts: '03 // معرض 3D', navContact: '04 // اتصل بنا', navAdmin: 'L-تحكم', requestQuote: 'بدء المشروع', badge: 'طباعة ثلاثية الأبعاد متقدمة', heroTitle1: 'هندسة ثلاثية الأبعاد', heroTitle2: 'نماذج أولية فائقة الدقة', heroDesc: `تحويل النماذج الرقمية إلى واقع ملموس بدقة عالية بواسطة ${siteConfig.companyName}.`, exploreProducts: 'استكشف النماذج', contactUs: 'تواصل معنا', aboutTag: 'المختبر التقني', aboutTitle: 'دقة الميكرون والتصميم المتقدم', aboutDesc: `${siteConfig.companyName} يدمج بين طباعة الراتنج الخيطية عالية الجودة.`, yearsExp: '+5 سنوات', yearsExpDesc: 'بحث وتطوير 3D', craftsmanship: '0.05 MM', craftsmanshipDesc: 'دقة الطبقات', showroomText: '[ مسح المختبر ]', productsTag: 'المعرض التقني', productsTitle: 'النماذج البارزة', productsDesc: 'حلول مخصصة مصممة باستخدام بوليمرات عالية الأداء.', p1Title: 'مجسمات انمي', p1Desc: 'طباعة راتنج UV فائقة الدقة تفاصيل يدوية.', p2Title: 'تماثيل مخصصة', p2Desc: 'نحت رقمي مطبوع بحجم كبير.', p3Title: 'نماذج صناعية', p3Desc: 'قطع ميكانيكية وظيفية من المواد المتقدمة.', moreInfo: 'المواصفات التقنية ←', contactTag: 'مركز التواصل', contactTitle: 'ابدأ مشروعك 3D', contactDesc: 'أرسل مواصفاتك التقنية للتواصل مع مهندسينا.', formName: 'الاسم / الشركة', formEmail: 'البريد الإلكتروني', formMessage: 'مواصفات المشروع', formSubmit: 'إرسال الطلب', addressLabel: 'المقر:', emailLabel: 'البريد:', phoneLabel: 'الهاتف:', fiscalLabel: 'الرقم الضريبي:', rights: 'جميع الحقوق محفوظة.' }
   }
 
   const text = t[lang]
   const isRtl = lang === 'ar'
 
   return (
-    <div className={`min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-rose-500 selection:text-white ${isRtl ? 'rtl' : 'ltr'}`} dir={isRtl ? 'rtl' : 'ltr'}>
-      <header className="border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center flex-wrap gap-4">
-          <Link href="/" className="text-2xl font-black tracking-wider bg-gradient-to-r from-rose-600 to-indigo-600 bg-clip-text text-transparent">
-            {siteConfig.companyName}
+    <div className={`min-h-screen bg-[#f4f6f9] text-slate-800 font-sans selection:bg-cyan-500 selection:text-white ${isRtl ? 'rtl' : 'ltr'}`} dir={isRtl ? 'rtl' : 'ltr'}>
+      {/* Pattern Griglia High-Tech di Sfondo */}
+      <div className="fixed inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0"></div>
+
+      {/* Header High-Tech */}
+      <header className="border-b border-slate-200/80 bg-white/70 backdrop-blur-lg sticky top-0 z-50 shadow-xs">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center flex-wrap gap-4 relative z-10">
+          <Link href="/" className="flex items-center gap-2 group">
+            <span className="w-3 h-3 rounded-full bg-cyan-500 animate-pulse"></span>
+            <span className="text-2xl font-black tracking-widest bg-gradient-to-r from-slate-900 via-indigo-950 to-cyan-600 bg-clip-text text-transparent uppercase">
+              {siteConfig.companyName}
+            </span>
           </Link>
           
-          <nav className="hidden lg:flex gap-6 text-sm font-semibold text-slate-600">
-            <a href="#home" className="hover:text-rose-600 transition">{text.navHome}</a>
-            <a href="#about" className="hover:text-rose-600 transition">{text.navAbout}</a>
-            <a href="#products" className="hover:text-rose-600 transition">{text.navProducts}</a>
-            <a href="#contact" className="hover:text-rose-600 transition">{text.navContact}</a>
+          <nav className="hidden lg:flex gap-8 text-xs font-mono font-bold tracking-wider text-slate-600 uppercase">
+            <a href="#home" className="hover:text-cyan-600 transition">{text.navHome}</a>
+            <a href="#about" className="hover:text-cyan-600 transition">{text.navAbout}</a>
+            <a href="#products" className="hover:text-cyan-600 transition">{text.navProducts}</a>
+            <a href="#contact" className="hover:text-cyan-600 transition">{text.navContact}</a>
           </nav>
 
           <div className="flex items-center gap-3 flex-wrap">
             <select
               value={lang}
               onChange={(e) => setLang(e.target.value as Language)}
-              className="bg-slate-100 border border-slate-200 text-slate-700 text-xs rounded-lg px-2.5 py-2 focus:outline-none focus:border-rose-500 cursor-pointer font-medium"
+              className="bg-white/90 border border-slate-300 text-slate-700 text-xs rounded-md px-3 py-2 font-mono font-medium shadow-2xs focus:outline-none focus:border-cyan-500 cursor-pointer"
             >
-              <option value="it">🇮🇹 Italiano</option>
-              <option value="en">🇬🇧 English</option>
-              <option value="es">🇪🇸 Español</option>
-              <option value="fr">🇫🇷 Français</option>
-              <option value="de">🇩🇪 Deutsch</option>
-              <option value="ar">🇸🇦 العربية</option>
+              <option value="it">🇮🇹 IT</option>
+              <option value="en">🇬🇧 EN</option>
+              <option value="es">🇪🇸 ES</option>
+              <option value="fr">🇫🇷 FR</option>
+              <option value="de">🇩🇪 DE</option>
+              <option value="ar">🇸🇦 AR</option>
             </select>
 
-            <Link href="/admin" className="hidden sm:inline-block text-xs text-slate-600 hover:text-rose-600 border border-slate-200 bg-white px-3 py-2 rounded-lg transition font-medium shadow-xs">
+            <Link href="/admin" className="hidden sm:inline-block text-xs font-mono font-bold text-slate-600 hover:text-cyan-600 border border-slate-300 bg-white/80 px-3.5 py-2 rounded-md transition shadow-2xs">
               {text.adminArea}
             </Link>
-            <a href="#contact" className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white text-xs md:text-sm font-semibold rounded-lg transition shadow-md shadow-rose-600/20">
+            <a href="#contact" className="px-4 py-2 bg-slate-900 hover:bg-cyan-600 text-white text-xs font-mono font-bold rounded-md transition shadow-md shadow-slate-900/10">
               {text.requestQuote}
             </a>
           </div>
         </div>
       </header>
 
-      <section id="home" className="relative py-28 px-6 text-center bg-gradient-to-b from-indigo-50/50 via-white to-slate-50 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-rose-400/10 blur-[120px] rounded-full pointer-events-none"></div>
-        <div className="max-w-4xl mx-auto relative z-10">
-          <span className="px-3.5 py-1.5 text-xs font-bold bg-rose-50 text-rose-600 rounded-full border border-rose-200 inline-block shadow-xs">
+      {/* Hero Section Futuristic Light */}
+      <section id="home" className="relative py-32 px-6 text-center overflow-hidden z-10">
+        <div className="max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[11px] font-mono font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 rounded-full shadow-2xs mb-8">
+            <span className="w-2 h-2 rounded-full bg-cyan-500"></span>
             {text.badge}
-          </span>
-          <h1 className="mt-6 text-4xl md:text-6xl font-black tracking-tight text-slate-900 leading-tight">
+          </div>
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight text-slate-900 leading-[1.15]">
             {text.heroTitle1} <br />
-            <span className="bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
               {text.heroTitle2}
             </span>
           </h1>
-          <p className="mt-6 text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">{text.heroDesc}</p>
-          <div className="mt-10 flex justify-center gap-4 flex-wrap">
-            <a href="#products" className="px-8 py-3.5 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl transition shadow-lg shadow-rose-600/25">{text.exploreProducts}</a>
-            <a href="#contact" className="px-8 py-3.5 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-slate-200 transition shadow-xs">{text.contactUs}</a>
+          <p className="mt-8 text-base md:text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">{text.heroDesc}</p>
+          <div className="mt-10 flex justify-center gap-4 flex-wrap font-mono">
+            <a href="#products" className="px-8 py-3.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-lg transition shadow-lg shadow-cyan-600/20 uppercase tracking-wider">{text.exploreProducts}</a>
+            <a href="#contact" className="px-8 py-3.5 bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold rounded-lg border border-slate-300 transition shadow-2xs uppercase tracking-wider">{text.contactUs}</a>
           </div>
         </div>
       </section>
 
-      <section id="about" className="py-24 px-6 border-t border-slate-200 bg-white">
+      {/* Sezione Chi Siamo High-Tech (3 Foto Intere) */}
+      <section id="about" className="py-24 px-6 border-t border-slate-200 bg-white/70 backdrop-blur-md z-10 relative">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="text-xs font-bold text-rose-600 uppercase tracking-widest bg-rose-50 px-3 py-1 rounded-md">{text.aboutTag}</span>
-            <h2 className="mt-3 text-3xl md:text-4xl font-extrabold text-slate-900">{text.aboutTitle}</h2>
-            <p className="mt-4 text-slate-600 leading-relaxed text-base">{text.aboutDesc}</p>
-            <div className="mt-8 grid grid-cols-2 gap-6">
-              <div className="p-5 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs">
-                <h3 className="text-3xl font-black text-rose-600">{text.yearsExp}</h3>
-                <p className="text-sm font-medium text-slate-600 mt-1">{text.yearsExpDesc}</p>
+            <span className="text-[11px] font-mono font-bold text-cyan-600 uppercase tracking-widest bg-cyan-50 border border-cyan-200/60 px-3 py-1 rounded-md">{text.aboutTag}</span>
+            <h2 className="mt-4 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">{text.aboutTitle}</h2>
+            <p className="mt-4 text-slate-600 leading-relaxed text-sm md:text-base">{text.aboutDesc}</p>
+            
+            <div className="mt-8 grid grid-cols-2 gap-4 font-mono">
+              <div className="p-5 bg-slate-50 rounded-xl border border-slate-200 shadow-2xs">
+                <h3 className="text-2xl font-black text-slate-900">{text.yearsExp}</h3>
+                <p className="text-xs text-slate-500 mt-1 uppercase font-semibold">{text.yearsExpDesc}</p>
               </div>
-              <div className="p-5 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs">
-                <h3 className="text-3xl font-black text-indigo-600">{text.craftsmanship}</h3>
-                <p className="text-sm font-medium text-slate-600 mt-1">{text.craftsmanshipDesc}</p>
+              <div className="p-5 bg-slate-50 rounded-xl border border-slate-200 shadow-2xs">
+                <h3 className="text-2xl font-black text-cyan-600">{text.craftsmanship}</h3>
+                <p className="text-xs text-slate-500 mt-1 uppercase font-semibold">{text.craftsmanshipDesc}</p>
               </div>
             </div>
           </div>
 
+          {/* Griglia 3 Foto Chi Siamo (Cornice Tech Glassmorphism) */}
           <div className="grid grid-cols-2 gap-4">
             <div 
               onClick={() => siteConfig.aboutImage && setSelectedImage(siteConfig.aboutImage)} 
-              className="h-64 col-span-2 rounded-2xl border border-slate-200 overflow-hidden bg-slate-100 cursor-pointer group relative flex items-center justify-center p-2 shadow-sm"
+              className="h-64 col-span-2 rounded-xl border border-slate-200/90 overflow-hidden bg-slate-100/80 backdrop-blur-sm cursor-pointer group relative flex items-center justify-center p-3 shadow-xs hover:border-cyan-400 transition"
             >
               {siteConfig.aboutImage ? (
                 <>
                   <img src={siteConfig.aboutImage} alt="Chi Siamo 1" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
-                  <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-bold backdrop-blur-xs">🔍 Ingrandisci</div>
+                  <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ FULLSCAN ]</div>
                 </>
-              ) : <div className="text-slate-400 font-medium">{text.showroomText} 1</div>}
+              ) : <div className="text-slate-400 font-mono text-xs">{text.showroomText} 01</div>}
             </div>
 
             <div 
               onClick={() => siteConfig.aboutImage2 && setSelectedImage(siteConfig.aboutImage2)} 
-              className="h-44 rounded-xl border border-slate-200 overflow-hidden bg-slate-100 cursor-pointer group relative flex items-center justify-center p-2 shadow-sm"
+              className="h-44 rounded-xl border border-slate-200/90 overflow-hidden bg-slate-100/80 backdrop-blur-sm cursor-pointer group relative flex items-center justify-center p-3 shadow-xs hover:border-cyan-400 transition"
             >
               {siteConfig.aboutImage2 ? (
                 <>
                   <img src={siteConfig.aboutImage2} alt="Chi Siamo 2" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
-                  <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-bold backdrop-blur-xs">🔍 Ingrandisci</div>
+                  <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ FULLSCAN ]</div>
                 </>
-              ) : <div className="text-slate-400 text-xs font-medium">{text.showroomText} 2</div>}
+              ) : <div className="text-slate-400 font-mono text-xs">{text.showroomText} 02</div>}
             </div>
 
             <div 
               onClick={() => siteConfig.aboutImage3 && setSelectedImage(siteConfig.aboutImage3)} 
-              className="h-44 rounded-xl border border-slate-200 overflow-hidden bg-slate-100 cursor-pointer group relative flex items-center justify-center p-2 shadow-sm"
+              className="h-44 rounded-xl border border-slate-200/90 overflow-hidden bg-slate-100/80 backdrop-blur-sm cursor-pointer group relative flex items-center justify-center p-3 shadow-xs hover:border-cyan-400 transition"
             >
               {siteConfig.aboutImage3 ? (
                 <>
                   <img src={siteConfig.aboutImage3} alt="Chi Siamo 3" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
-                  <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-bold backdrop-blur-xs">🔍 Ingrandisci</div>
+                  <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ FULLSCAN ]</div>
                 </>
-              ) : <div className="text-slate-400 text-xs font-medium">{text.showroomText} 3</div>}
+              ) : <div className="text-slate-400 font-mono text-xs">{text.showroomText} 03</div>}
             </div>
           </div>
         </div>
       </section>
 
-      <section id="products" className="py-24 px-6 border-t border-slate-200 bg-slate-50/50">
+      {/* Vetrina Prodotti High-Tech */}
+      <section id="products" className="py-24 px-6 border-t border-slate-200 bg-[#f8fafc] z-10 relative">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-bold text-rose-600 uppercase tracking-widest bg-rose-50 px-3 py-1 rounded-md">{text.productsTag}</span>
-            <h2 className="mt-3 text-3xl md:text-4xl font-extrabold text-slate-900">{text.productsTitle}</h2>
-            <p className="mt-3 text-slate-600">{text.productsDesc}</p>
+            <span className="text-[11px] font-mono font-bold text-cyan-600 uppercase tracking-widest bg-cyan-50 border border-cyan-200/60 px-3 py-1 rounded-md">{text.productsTag}</span>
+            <h2 className="mt-4 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">{text.productsTitle}</h2>
+            <p className="mt-3 text-slate-600 text-sm">{text.productsDesc}</p>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col">
+            <div className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-2xs hover:shadow-md transition flex flex-col group">
               <div 
                 onClick={() => siteConfig.p1Image && setSelectedImage(siteConfig.p1Image)}
-                className="h-64 bg-slate-100 overflow-hidden flex items-center justify-center cursor-pointer group relative p-4 border-b border-slate-100"
+                className="h-64 bg-slate-50 overflow-hidden flex items-center justify-center cursor-pointer relative p-4 border-b border-slate-100"
               >
                 {siteConfig.p1Image ? (
                   <>
                     <img src={siteConfig.p1Image} alt="P1" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
-                    <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-bold backdrop-blur-xs">🔍 Ingrandisci</div>
+                    <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ VIEW SPEC ]</div>
                   </>
-                ) : <span className="text-slate-400 font-medium">[ {text.p1Title} ]</span>}
+                ) : <span className="text-slate-400 font-mono text-xs">[ {text.p1Title} ]</span>}
               </div>
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{text.p1Title}</h3>
-                <p className="text-slate-600 text-sm mb-6 flex-grow">{text.p1Desc}</p>
-                <a href="#contact" className="text-rose-600 text-sm font-bold hover:text-rose-700">{text.moreInfo}</a>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{text.p1Title}</h3>
+                <p className="text-slate-600 text-xs leading-relaxed mb-6 flex-grow">{text.p1Desc}</p>
+                <a href="#contact" className="text-cyan-600 text-xs font-mono font-bold hover:text-cyan-700">{text.moreInfo}</a>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col">
+            <div className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-2xs hover:shadow-md transition flex flex-col group">
               <div 
                 onClick={() => siteConfig.p2Image && setSelectedImage(siteConfig.p2Image)}
-                className="h-64 bg-slate-100 overflow-hidden flex items-center justify-center cursor-pointer group relative p-4 border-b border-slate-100"
+                className="h-64 bg-slate-50 overflow-hidden flex items-center justify-center cursor-pointer relative p-4 border-b border-slate-100"
               >
                 {siteConfig.p2Image ? (
                   <>
                     <img src={siteConfig.p2Image} alt="P2" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
-                    <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-bold backdrop-blur-xs">🔍 Ingrandisci</div>
+                    <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ VIEW SPEC ]</div>
                   </>
-                ) : <span className="text-slate-400 font-medium">[ {text.p2Title} ]</span>}
+                ) : <span className="text-slate-400 font-mono text-xs">[ {text.p2Title} ]</span>}
               </div>
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{text.p2Title}</h3>
-                <p className="text-slate-600 text-sm mb-6 flex-grow">{text.p2Desc}</p>
-                <a href="#contact" className="text-rose-600 text-sm font-bold hover:text-rose-700">{text.moreInfo}</a>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{text.p2Title}</h3>
+                <p className="text-slate-600 text-xs leading-relaxed mb-6 flex-grow">{text.p2Desc}</p>
+                <a href="#contact" className="text-cyan-600 text-xs font-mono font-bold hover:text-cyan-700">{text.moreInfo}</a>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col">
+            <div className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-2xs hover:shadow-md transition flex flex-col group">
               <div 
                 onClick={() => siteConfig.p3Image && setSelectedImage(siteConfig.p3Image)}
-                className="h-64 bg-slate-100 overflow-hidden flex items-center justify-center cursor-pointer group relative p-4 border-b border-slate-100"
+                className="h-64 bg-slate-50 overflow-hidden flex items-center justify-center cursor-pointer relative p-4 border-b border-slate-100"
               >
                 {siteConfig.p3Image ? (
                   <>
                     <img src={siteConfig.p3Image} alt="P3" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
-                    <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-bold backdrop-blur-xs">🔍 Ingrandisci</div>
+                    <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ VIEW SPEC ]</div>
                   </>
-                ) : <span className="text-slate-400 font-medium">[ {text.p3Title} ]</span>}
+                ) : <span className="text-slate-400 font-mono text-xs">[ {text.p3Title} ]</span>}
               </div>
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{text.p3Title}</h3>
-                <p className="text-slate-600 text-sm mb-6 flex-grow">{text.p3Desc}</p>
-                <a href="#contact" className="text-rose-600 text-sm font-bold hover:text-rose-700">{text.moreInfo}</a>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{text.p3Title}</h3>
+                <p className="text-slate-600 text-xs leading-relaxed mb-6 flex-grow">{text.p3Desc}</p>
+                <a href="#contact" className="text-cyan-600 text-xs font-mono font-bold hover:text-cyan-700">{text.moreInfo}</a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="py-24 px-6 border-t border-slate-200 bg-white">
+      {/* Contatti Hub */}
+      <section id="contact" className="py-24 px-6 border-t border-slate-200 bg-white z-10 relative">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
           <div>
-            <span className="text-xs font-bold text-rose-600 uppercase tracking-widest bg-rose-50 px-3 py-1 rounded-md">{text.contactTag}</span>
-            <h2 className="mt-3 text-3xl font-extrabold text-slate-900">{text.contactTitle}</h2>
-            <p className="mt-4 text-slate-600 leading-relaxed">{text.contactDesc}</p>
-            <div className="mt-8 space-y-4 text-slate-700 text-sm font-medium">
+            <span className="text-[11px] font-mono font-bold text-cyan-600 uppercase tracking-widest bg-cyan-50 border border-cyan-200/60 px-3 py-1 rounded-md">{text.contactTag}</span>
+            <h2 className="mt-4 text-3xl font-extrabold text-slate-900 tracking-tight">{text.contactTitle}</h2>
+            <p className="mt-4 text-slate-600 text-sm leading-relaxed">{text.contactDesc}</p>
+            <div className="mt-8 space-y-4 text-slate-700 text-xs font-mono">
               <p className="flex items-center gap-3">📍 <strong className="text-slate-900">{text.addressLabel}</strong> {siteConfig.address}</p>
               <p className="flex items-center gap-3">📧 <strong className="text-slate-900">{text.emailLabel}</strong> {siteConfig.email}</p>
               <p className="flex items-center gap-3">📞 <strong className="text-slate-900">{text.phoneLabel}</strong> {siteConfig.phone}</p>
               <p className="flex items-center gap-3">📋 <strong className="text-slate-900">{text.fiscalLabel}</strong> {siteConfig.taxId} — {siteConfig.fiscalCode}</p>
             </div>
           </div>
-          <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200 shadow-sm">
-            <form className="space-y-4">
+
+          <div className="bg-slate-50 p-8 rounded-xl border border-slate-200 shadow-2xs">
+            <form className="space-y-4 font-mono">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">{text.formName}</label>
-                <input type="text" placeholder={text.formName} className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-rose-500 shadow-2xs" />
+                <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1">{text.formName}</label>
+                <input type="text" placeholder={text.formName} className="w-full bg-white border border-slate-200 rounded-md px-4 py-3 text-slate-900 text-xs focus:outline-none focus:border-cyan-500 shadow-2xs" />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">{text.formEmail}</label>
-                <input type="email" placeholder={text.formEmail} className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-rose-500 shadow-2xs" />
+                <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1">{text.formEmail}</label>
+                <input type="email" placeholder={text.formEmail} className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-900 text-xs focus:outline-none focus:border-cyan-500 shadow-2xs" />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">{text.formMessage}</label>
-                <textarea rows={4} placeholder={text.formMessage} className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-rose-500 shadow-2xs"></textarea>
+                <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1">{text.formMessage}</label>
+                <textarea rows={4} placeholder={text.formMessage} className="w-full bg-white border border-slate-200 rounded-md px-4 py-3 text-slate-900 text-xs focus:outline-none focus:border-cyan-500 shadow-2xs"></textarea>
               </div>
-              <button type="button" className="w-full py-3.5 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-lg text-sm shadow-md shadow-rose-600/20 transition">{text.formSubmit}</button>
+              <button type="button" className="w-full py-3.5 bg-slate-900 hover:bg-cyan-600 text-white font-bold rounded-md text-xs uppercase tracking-wider transition shadow-md">{text.formSubmit}</button>
             </form>
           </div>
         </div>
       </section>
 
+      {/* Lightbox High-Tech Modal */}
       {selectedImage && (
         <div 
           className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 cursor-pointer"
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-5xl max-h-[90vh]">
-            <img src={selectedImage} alt="Ingrandimento" className="max-w-full max-h-[90vh] rounded-2xl object-contain border border-slate-200 shadow-2xl bg-white p-2" />
+            <img src={selectedImage} alt="Ingrandimento High-Tech" className="max-w-full max-h-[90vh] rounded-xl object-contain border border-slate-300 shadow-2xl bg-white p-2" />
             <button 
               onClick={() => setSelectedImage(null)}
-              className="absolute -top-12 right-0 text-slate-900 font-bold text-xs bg-white px-4 py-2 rounded-full border border-slate-200 shadow-md hover:bg-slate-100 transition"
+              className="absolute -top-12 right-0 text-slate-900 font-mono font-bold text-xs bg-white px-4 py-2 rounded-md border border-slate-200 shadow-md hover:bg-slate-100 transition"
             >
-              ✕ Chiudi
+              ✕ [ CLOSE SCAN ]
             </button>
           </div>
         </div>
       )}
 
-      <footer className="border-t border-slate-200 py-12 px-6 bg-white text-center text-slate-500 text-xs font-medium space-y-2">
+      {/* Footer Tech */}
+      <footer className="border-t border-slate-200 py-10 px-6 bg-white text-center text-slate-500 text-xs font-mono space-y-2 z-10 relative">
         <p className="text-slate-700 font-semibold">{siteConfig.companyName} &bull; {siteConfig.address} &bull; {siteConfig.taxId} &bull; {siteConfig.fiscalCode}</p>
-        <p>&copy; 2026 {siteConfig.companyName}. {text.rights}</p>
+        <p className="text-[10px] text-slate-400">&copy; 2026 {siteConfig.companyName}. {text.rights}</p>
       </footer>
     </div>
   )
