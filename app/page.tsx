@@ -1,26 +1,16 @@
-// app/page.tsx - Sincronizzazione Admin
 // app/page.tsx
 'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { siteConfig } from '@/lib/config' // Importa i dati centralizzati
 
 type Language = 'it' | 'en' | 'es' | 'fr' | 'de' | 'ar'
 
 export default function Home() {
   const [lang, setLang] = useState<Language>('it')
 
-  // Dati societari
-  const companyInfo = {
-    name: 'Nexus-3D',
-    address: 'Via Roma 123, Napoli (NA)',
-    taxId: 'P.IVA 01234567890',
-    fiscalCode: 'C.F. RSSMRA80A01F839X',
-    email: 'info@nexus-3d.it',
-    phone: '+39 081 1234567'
-  }
-
-  // Dizionario multilingua (6 lingue)
+  // Dizionario multilingua che usa i dati di siteConfig
   const t: Record<Language, any> = {
     it: {
       navHome: 'Home',
@@ -32,12 +22,12 @@ export default function Home() {
       badge: 'Stampe 3D di Alta Qualità • Design & Artigianato',
       heroTitle1: 'Porta le tue idee',
       heroTitle2: 'nella realtà tridimensionale',
-      heroDesc: `Realizziamo prototipi, action figure, statue dettagliate e oggetti di design unici stampati in 3D con cura artigianale e rifiniti a mano da ${companyInfo.name}.`,
+      heroDesc: `Realizziamo prototipi, action figure, statue dettagliate e oggetti di design unici stampati in 3D con cura artigianale e rifiniti a mano da ${siteConfig.companyName}.`,
       exploreProducts: 'Scopri i Prodotti',
       contactUs: 'Contattaci',
       aboutTag: 'Chi Siamo',
       aboutTitle: 'Innovazione e passione per il dettaglio',
-      aboutDesc: `${companyInfo.name} nasce dalla passione per la tecnologia di stampa tridimensionale e la modellazione avanzata. Aiutiamo creativi, aziende e appassionati a trasformare progetti digitali in oggetti reali.`,
+      aboutDesc: `${siteConfig.companyName} nasce dalla passione per la tecnologia di stampa tridimensionale e la modellazione avanzata. Aiutiamo creativi, aziende e appassionati a trasformare progetti digitali in oggetti reali.`,
       yearsExp: '+5 Anni',
       yearsExpDesc: 'Nel settore della stampa 3D',
       craftsmanship: '100%',
@@ -76,12 +66,12 @@ export default function Home() {
       badge: 'High Quality 3D Printing • Design & Craftsmanship',
       heroTitle1: 'Bring your ideas',
       heroTitle2: 'into three-dimensional reality',
-      heroDesc: `We create prototypes, action figures, detailed statues, and unique design objects 3D printed with craftsmanship and hand-finished by ${companyInfo.name}.`,
+      heroDesc: `We create prototypes, action figures, detailed statues, and unique design objects 3D printed with craftsmanship and hand-finished by ${siteConfig.companyName}.`,
       exploreProducts: 'Explore Products',
       contactUs: 'Contact Us',
       aboutTag: 'About Us',
       aboutTitle: 'Innovation and passion for detail',
-      aboutDesc: `${companyInfo.name} was born from a passion for 3D printing technology and advanced modeling. We help creators, companies, and enthusiasts turn digital projects into real objects.`,
+      aboutDesc: `${siteConfig.companyName} was born from a passion for 3D printing technology and advanced modeling. We help creators, companies, and enthusiasts turn digital projects into real objects.`,
       yearsExp: '+5 Years',
       yearsExpDesc: 'In 3D printing industry',
       craftsmanship: '100%',
@@ -120,12 +110,12 @@ export default function Home() {
       badge: 'Impresión 3D de Alta Calidad • Diseño y Artesanía',
       heroTitle1: 'Lleva tus ideas',
       heroTitle2: 'a la realidad tridimensional',
-      heroDesc: `Creamos prototipos, figuras de acción, estatuas detalladas y objetos de diseño únicos impresos en 3D y acabados a mano por ${companyInfo.name}.`,
+      heroDesc: `Creamos prototipos, figuras de acción, estatuas detalladas y objetos de diseño únicos impresos en 3D y acabados a mano por ${siteConfig.companyName}.`,
       exploreProducts: 'Explorar Productos',
       contactUs: 'Contáctanos',
       aboutTag: 'Quiénes Somos',
       aboutTitle: 'Innovación y pasión por los detalles',
-      aboutDesc: `${companyInfo.name} nace de la pasión por la tecnología de impresión 3D y el modelado avanzado. Ayudamos a creadores y empresas a transformar proyectos digitales en objetos reales.`,
+      aboutDesc: `${siteConfig.companyName} nace de la pasión por la tecnología de impresión 3D y el modelado avanzado. Ayudamos a creadores y empresas a transformar proyectos digitales en objetos reales.`,
       yearsExp: '+5 Años',
       yearsExpDesc: 'En el sector de la impresión 3D',
       craftsmanship: '100%',
@@ -164,12 +154,12 @@ export default function Home() {
       badge: 'Impression 3D Haute Qualité • Design & Artisanat',
       heroTitle1: 'Donnez vie à vos idées',
       heroTitle2: 'dans la réalité tridimensionnelle',
-      heroDesc: `Nous créons des prototypes, des figurines, des statues détaillées et des objets design uniques imprimés en 3D et finis à la main par ${companyInfo.name}.`,
+      heroDesc: `Nous créons des prototypes, des figurines, des statues détaillées et des objets design uniques imprimés en 3D et finis à la main par ${siteConfig.companyName}.`,
       exploreProducts: 'Explorer les Produits',
       contactUs: 'Contactez-nous',
       aboutTag: 'À Propos',
       aboutTitle: 'Innovation et passion du détail',
-      aboutDesc: `${companyInfo.name} est né de la passion pour la technologie d'impression 3D et la modélisation avancée. Nous aidons les créateurs à transformer des projets numériques en objets réels.`,
+      aboutDesc: `${siteConfig.companyName} est né de la passion pour la technologie d'impression 3D et la modélisation avancée. Nous aidons les créateurs à transformer des projets numériques en objets réels.`,
       yearsExp: '+5 Ans',
       yearsExpDesc: "Dans l'industrie de l'impression 3D",
       craftsmanship: '100%',
@@ -208,12 +198,12 @@ export default function Home() {
       badge: 'Hochwertiger 3D-Druck • Design & Handwerkskunst',
       heroTitle1: 'Bringen Sie Ihre Ideen',
       heroTitle2: 'in die dreidimensionale Realität',
-      heroDesc: `Wir erstellen Prototypen, Actionfiguren, detailgetreue Statuen und einzigartige Designobjekte, handgefertigt und 3D-gedruckt von ${companyInfo.name}.`,
+      heroDesc: `Wir erstellen Prototypen, Actionfiguren, detailgetreue Statuen und einzigartige Designobjekte, handgefertigt und 3D-gedruckt von ${siteConfig.companyName}.`,
       exploreProducts: 'Produkte Erkunden',
       contactUs: 'Kontaktieren Sie uns',
       aboutTag: 'Über Uns',
       aboutTitle: 'Innovation und Leidenschaft für Details',
-      aboutDesc: `${companyInfo.name} entstand aus der Leidenschaft für 3D-Drucktechnologie und fortgeschrittene Modellierung. Wir helfen Kreativen und Unternehmen, digitale Projekte real werden zu lassen.`,
+      aboutDesc: `${siteConfig.companyName} entstand aus der Leidenschaft für 3D-Drucktechnologie und fortgeschrittene Modellierung. Wir helfen Kreativen und Unternehmen, digitale Projekte real werden zu lassen.`,
       yearsExp: '+5 Jahre',
       yearsExpDesc: 'In der 3D-Druck-Branche',
       craftsmanship: '100%',
@@ -252,12 +242,12 @@ export default function Home() {
       badge: 'طباعة ثلاثية الأبعاد عالية الجودة • تصميم و حرفية',
       heroTitle1: 'اجلب أفكارك',
       heroTitle2: 'إلى الواقع ثلاثي الأبعاد',
-      heroDesc: `نقوم بتصميم نماذج أولية، مجسمات، وتماثيل مفصلة فريدة من نوعها مطبوعة بتقنية ثلاثية الأبعاد ومصنوعة يدوياً بواسطة ${companyInfo.name}.`,
+      heroDesc: `نقوم بتصميم نماذج أولية، مجسمات، وتماثيل مفصلة فريدة من نوعها مطبوعة بتقنية ثلاثية الأبعاد ومصنوعة يدوياً بواسطة ${siteConfig.companyName}.`,
       exploreProducts: 'استكشف المنتجات',
       contactUs: 'اتصل بنا',
       aboutTag: 'من نحن',
       aboutTitle: 'الابتكار والشغف بالتفاصيل',
-      aboutDesc: `تأسست ${companyInfo.name} من شغفنا بتقنية الطباعة ثلاثية الأبعاد والنمذجة المتقدمة. نساعد المبدعين والشركات على تحويل المشاريع الرقمية إلى واقع ملموس.`,
+      aboutDesc: `تأسست ${siteConfig.companyName} من شغفنا بتقنية الطباعة ثلاثية الأبعاد والنمذجة المتقدمة. نساعد المبدعين والشركات على تحويل المشاريع الرقمية إلى واقع ملموس.`,
       yearsExp: '+5 سنوات',
       yearsExpDesc: 'في مجال الطباعة ثلاثية الأبعاد',
       craftsmanship: '100%',
@@ -297,7 +287,7 @@ export default function Home() {
       <header className="border-b border-gray-800 bg-gray-950/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center flex-wrap gap-4">
           <Link href="/" className="text-2xl font-black tracking-wider bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
-            {companyInfo.name}
+            {siteConfig.companyName}
           </Link>
           
           <nav className="hidden lg:flex gap-6 text-sm font-medium text-gray-300">
@@ -308,7 +298,6 @@ export default function Home() {
           </nav>
 
           <div className="flex items-center gap-3 flex-wrap">
-            {/* Selettore 6 Lingue */}
             <select
               value={lang}
               onChange={(e) => setLang(e.target.value as Language)}
@@ -436,7 +425,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sezione Contatti */}
+      {/* Sezione Contatti con Dati Dinamici */}
       <section id="contact" className="py-24 px-6 border-t border-gray-900 bg-gray-950">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
@@ -445,10 +434,10 @@ export default function Home() {
             <p className="mt-4 text-gray-400 leading-relaxed">{text.contactDesc}</p>
 
             <div className="mt-8 space-y-4 text-gray-300 text-sm">
-              <p>📍 <strong className="text-white">{text.addressLabel}</strong> {companyInfo.address}</p>
-              <p>📧 <strong className="text-white">{text.emailLabel}</strong> {companyInfo.email}</p>
-              <p>📞 <strong className="text-white">{text.phoneLabel}</strong> {companyInfo.phone}</p>
-              <p>📋 <strong className="text-white">{text.fiscalLabel}</strong> {companyInfo.taxId} — {companyInfo.fiscalCode}</p>
+              <p>📍 <strong className="text-white">{text.addressLabel}</strong> {siteConfig.address}</p>
+              <p>📧 <strong className="text-white">{text.emailLabel}</strong> {siteConfig.email}</p>
+              <p>📞 <strong className="text-white">{text.phoneLabel}</strong> {siteConfig.phone}</p>
+              <p>📋 <strong className="text-white">{text.fiscalLabel}</strong> {siteConfig.taxId} — {siteConfig.fiscalCode}</p>
             </div>
           </div>
 
@@ -474,10 +463,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer con Dati Societari */}
+      {/* Footer con Dati Societari Dinamici */}
       <footer className="border-t border-gray-900 py-12 px-6 bg-gray-950 text-center text-gray-500 text-xs space-y-3">
-        <p className="text-gray-400 font-medium">{companyInfo.name} &bull; {companyInfo.address} &bull; {companyInfo.taxId} &bull; {companyInfo.fiscalCode}</p>
-        <p>&copy; 2026 {companyInfo.name}. {text.rights}</p>
+        <p className="text-gray-400 font-medium">{siteConfig.companyName} &bull; {siteConfig.address} &bull; {siteConfig.taxId} &bull; {siteConfig.fiscalCode}</p>
+        <p>&copy; 2026 {siteConfig.companyName}. {text.rights}</p>
       </footer>
     </div>
   )
