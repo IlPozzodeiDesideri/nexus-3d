@@ -133,7 +133,6 @@ export default function AdminPage() {
     return (
       <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center px-4 font-sans">
         <div className="bg-gray-900 border border-gray-800 p-8 rounded-2xl max-w-md w-full shadow-2xl relative">
-          {/* Collegamento rapido alla Home anche nella schermata di login */}
           <div className="absolute top-4 right-4">
             <Link href="/" className="text-xs text-pink-400 hover:underline">← Torna al sito</Link>
           </div>
@@ -164,7 +163,6 @@ export default function AdminPage() {
             <p className="text-xs text-gray-400 mt-1">Gestione in tempo reale collegata a Supabase</p>
           </div>
           
-          {/* Collegamenti rapidi Home e Logout */}
           <div className="flex items-center gap-3">
             <Link 
               href="/" 
@@ -221,21 +219,33 @@ export default function AdminPage() {
                 <label className="block text-sm font-medium text-gray-300 mb-2">Foto 1 Chi Siamo</label>
                 <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'aboutImage')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
                 {uploading === 'aboutImage' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
-                {settings.aboutImage && <img src={settings.aboutImage} alt="About 1" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
+                {settings.aboutImage && (
+                  <div className="mt-3 h-44 w-full bg-gray-950 rounded-lg border border-gray-800 overflow-hidden flex items-center justify-center p-2">
+                    <img src={settings.aboutImage} alt="About 1" className="max-h-full max-w-full object-contain" />
+                  </div>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Foto 2 Chi Siamo</label>
                 <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'aboutImage2')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
                 {uploading === 'aboutImage2' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
-                {settings.aboutImage2 && <img src={settings.aboutImage2} alt="About 2" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
+                {settings.aboutImage2 && (
+                  <div className="mt-3 h-44 w-full bg-gray-950 rounded-lg border border-gray-800 overflow-hidden flex items-center justify-center p-2">
+                    <img src={settings.aboutImage2} alt="About 2" className="max-h-full max-w-full object-contain" />
+                  </div>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Foto 3 Chi Siamo</label>
                 <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'aboutImage3')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
                 {uploading === 'aboutImage3' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
-                {settings.aboutImage3 && <img src={settings.aboutImage3} alt="About 3" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
+                {settings.aboutImage3 && (
+                  <div className="mt-3 h-44 w-full bg-gray-950 rounded-lg border border-gray-800 overflow-hidden flex items-center justify-center p-2">
+                    <img src={settings.aboutImage3} alt="About 3" className="max-h-full max-w-full object-contain" />
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -248,21 +258,33 @@ export default function AdminPage() {
                 <label className="block text-sm font-medium text-gray-300 mb-2">Prodotto 1 (Action Figure)</label>
                 <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'p1Image')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
                 {uploading === 'p1Image' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
-                {settings.p1Image && <img src={settings.p1Image} alt="P1" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
+                {settings.p1Image && (
+                  <div className="mt-3 h-44 w-full bg-gray-950 rounded-lg border border-gray-800 overflow-hidden flex items-center justify-center p-2">
+                    <img src={settings.p1Image} alt="P1" className="max-h-full max-w-full object-contain" />
+                  </div>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Prodotto 2 (Statua)</label>
                 <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'p2Image')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
                 {uploading === 'p2Image' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
-                {settings.p2Image && <img src={settings.p2Image} alt="P2" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
+                {settings.p2Image && (
+                  <div className="mt-3 h-44 w-full bg-gray-950 rounded-lg border border-gray-800 overflow-hidden flex items-center justify-center p-2">
+                    <img src={settings.p2Image} alt="P2" className="max-h-full max-w-full object-contain" />
+                  </div>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Prodotto 3 (Prototipo)</label>
                 <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'p3Image')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
                 {uploading === 'p3Image' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
-                {settings.p3Image && <img src={settings.p3Image} alt="P3" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
+                {settings.p3Image && (
+                  <div className="mt-3 h-44 w-full bg-gray-950 rounded-lg border border-gray-800 overflow-hidden flex items-center justify-center p-2">
+                    <img src={settings.p3Image} alt="P3" className="max-h-full max-w-full object-contain" />
+                  </div>
+                )}
               </div>
             </div>
           </div>
