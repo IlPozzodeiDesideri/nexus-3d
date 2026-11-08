@@ -9,7 +9,7 @@ type Language = 'it' | 'en' | 'es' | 'fr' | 'de' | 'ar'
 
 export default function Home() {
   const [lang, setLang] = useState<Language>('it')
-  const [selectedImage, setSelectedImage] = useState<string | null>(null) // Lightbox per ingrandire
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
   const [siteConfig, setSiteConfig] = useState({
     companyName: 'Nexus-3D',
@@ -70,7 +70,6 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-rose-500 selection:text-white ${isRtl ? 'rtl' : 'ltr'}`} dir={isRtl ? 'rtl' : 'ltr'}>
-      {/* Header Luminoso & Glassmorphism */}
       <header className="border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center flex-wrap gap-4">
           <Link href="/" className="text-2xl font-black tracking-wider bg-gradient-to-r from-rose-600 to-indigo-600 bg-clip-text text-transparent">
@@ -108,7 +107,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section Luminosa */}
       <section id="home" className="relative py-28 px-6 text-center bg-gradient-to-b from-indigo-50/50 via-white to-slate-50 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-rose-400/10 blur-[120px] rounded-full pointer-events-none"></div>
         <div className="max-w-4xl mx-auto relative z-10">
@@ -129,7 +127,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sezione Chi Siamo (3 Foto Intere con Stile Moderno) */}
       <section id="about" className="py-24 px-6 border-t border-slate-200 bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
@@ -148,7 +145,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Griglia 3 Foto Chi Siamo (Intere e Ingrandibili) */}
           <div className="grid grid-cols-2 gap-4">
             <div 
               onClick={() => siteConfig.aboutImage && setSelectedImage(siteConfig.aboutImage)} 
@@ -176,4 +172,141 @@ export default function Home() {
 
             <div 
               onClick={() => siteConfig.aboutImage3 && setSelectedImage(siteConfig.aboutImage3)} 
-              className="h-44 rounded-xl border border-slate-200 overflow
+              className="h-44 rounded-xl border border-slate-200 overflow-hidden bg-slate-100 cursor-pointer group relative flex items-center justify-center p-2 shadow-sm"
+            >
+              {siteConfig.aboutImage3 ? (
+                <>
+                  <img src={siteConfig.aboutImage3} alt="Chi Siamo 3" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
+                  <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-bold backdrop-blur-xs">🔍 Ingrandisci</div>
+                </>
+              ) : <div className="text-slate-400 text-xs font-medium">{text.showroomText} 3</div>}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="products" className="py-24 px-6 border-t border-slate-200 bg-slate-50/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-xs font-bold text-rose-600 uppercase tracking-widest bg-rose-50 px-3 py-1 rounded-md">{text.productsTag}</span>
+            <h2 className="mt-3 text-3xl md:text-4xl font-extrabold text-slate-900">{text.productsTitle}</h2>
+            <p className="mt-3 text-slate-600">{text.productsDesc}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col">
+              <div 
+                onClick={() => siteConfig.p1Image && setSelectedImage(siteConfig.p1Image)}
+                className="h-64 bg-slate-100 overflow-hidden flex items-center justify-center cursor-pointer group relative p-4 border-b border-slate-100"
+              >
+                {siteConfig.p1Image ? (
+                  <>
+                    <img src={siteConfig.p1Image} alt="P1" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
+                    <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-bold backdrop-blur-xs">🔍 Ingrandisci</div>
+                  </>
+                ) : <span className="text-slate-400 font-medium">[ {text.p1Title} ]</span>}
+              </div>
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">{text.p1Title}</h3>
+                <p className="text-slate-600 text-sm mb-6 flex-grow">{text.p1Desc}</p>
+                <a href="#contact" className="text-rose-600 text-sm font-bold hover:text-rose-700">{text.moreInfo}</a>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col">
+              <div 
+                onClick={() => siteConfig.p2Image && setSelectedImage(siteConfig.p2Image)}
+                className="h-64 bg-slate-100 overflow-hidden flex items-center justify-center cursor-pointer group relative p-4 border-b border-slate-100"
+              >
+                {siteConfig.p2Image ? (
+                  <>
+                    <img src={siteConfig.p2Image} alt="P2" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
+                    <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-bold backdrop-blur-xs">🔍 Ingrandisci</div>
+                  </>
+                ) : <span className="text-slate-400 font-medium">[ {text.p2Title} ]</span>}
+              </div>
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">{text.p2Title}</h3>
+                <p className="text-slate-600 text-sm mb-6 flex-grow">{text.p2Desc}</p>
+                <a href="#contact" className="text-rose-600 text-sm font-bold hover:text-rose-700">{text.moreInfo}</a>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col">
+              <div 
+                onClick={() => siteConfig.p3Image && setSelectedImage(siteConfig.p3Image)}
+                className="h-64 bg-slate-100 overflow-hidden flex items-center justify-center cursor-pointer group relative p-4 border-b border-slate-100"
+              >
+                {siteConfig.p3Image ? (
+                  <>
+                    <img src={siteConfig.p3Image} alt="P3" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
+                    <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs text-white font-bold backdrop-blur-xs">🔍 Ingrandisci</div>
+                  </>
+                ) : <span className="text-slate-400 font-medium">[ {text.p3Title} ]</span>}
+              </div>
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">{text.p3Title}</h3>
+                <p className="text-slate-600 text-sm mb-6 flex-grow">{text.p3Desc}</p>
+                <a href="#contact" className="text-rose-600 text-sm font-bold hover:text-rose-700">{text.moreInfo}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="py-24 px-6 border-t border-slate-200 bg-white">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+          <div>
+            <span className="text-xs font-bold text-rose-600 uppercase tracking-widest bg-rose-50 px-3 py-1 rounded-md">{text.contactTag}</span>
+            <h2 className="mt-3 text-3xl font-extrabold text-slate-900">{text.contactTitle}</h2>
+            <p className="mt-4 text-slate-600 leading-relaxed">{text.contactDesc}</p>
+            <div className="mt-8 space-y-4 text-slate-700 text-sm font-medium">
+              <p className="flex items-center gap-3">📍 <strong className="text-slate-900">{text.addressLabel}</strong> {siteConfig.address}</p>
+              <p className="flex items-center gap-3">📧 <strong className="text-slate-900">{text.emailLabel}</strong> {siteConfig.email}</p>
+              <p className="flex items-center gap-3">📞 <strong className="text-slate-900">{text.phoneLabel}</strong> {siteConfig.phone}</p>
+              <p className="flex items-center gap-3">📋 <strong className="text-slate-900">{text.fiscalLabel}</strong> {siteConfig.taxId} — {siteConfig.fiscalCode}</p>
+            </div>
+          </div>
+          <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200 shadow-sm">
+            <form className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">{text.formName}</label>
+                <input type="text" placeholder={text.formName} className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-rose-500 shadow-2xs" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">{text.formEmail}</label>
+                <input type="email" placeholder={text.formEmail} className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-rose-500 shadow-2xs" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">{text.formMessage}</label>
+                <textarea rows={4} placeholder={text.formMessage} className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-rose-500 shadow-2xs"></textarea>
+              </div>
+              <button type="button" className="w-full py-3.5 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-lg text-sm shadow-md shadow-rose-600/20 transition">{text.formSubmit}</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 cursor-pointer"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-5xl max-h-[90vh]">
+            <img src={selectedImage} alt="Ingrandimento" className="max-w-full max-h-[90vh] rounded-2xl object-contain border border-slate-200 shadow-2xl bg-white p-2" />
+            <button 
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-12 right-0 text-slate-900 font-bold text-xs bg-white px-4 py-2 rounded-full border border-slate-200 shadow-md hover:bg-slate-100 transition"
+            >
+              ✕ Chiudi
+            </button>
+          </div>
+        </div>
+      )}
+
+      <footer className="border-t border-slate-200 py-12 px-6 bg-white text-center text-slate-500 text-xs font-medium space-y-2">
+        <p className="text-slate-700 font-semibold">{siteConfig.companyName} &bull; {siteConfig.address} &bull; {siteConfig.taxId} &bull; {siteConfig.fiscalCode}</p>
+        <p>&copy; 2026 {siteConfig.companyName}. {text.rights}</p>
+      </footer>
+    </div>
+  )
+}
