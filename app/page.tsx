@@ -1,8 +1,7 @@
 // app/page.tsx
+import { Suspense } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import Link from 'next/link'
-
-export const instant = false
 
 interface Product {
   id: string
@@ -32,9 +31,62 @@ async function getProducts() {
   }
 }
 
-export default async function Home() {
+async function ProductGrid() {
   const products = await getProducts()
 
+  if (products.length === 0) {
+    return (
+      <div className="text-center py-20 bg-gray-900/40 rounded-2xl border border-gray-800">
+        <p className="text-gray-400 text-lg">Il catalogo è ancora vuoto o in fase di caricamento.</p>
+        <p className="text-sm text-gray-500 mt-2">Aggiungi i primi prodotti direttamente dalla dashboard di Supabase!</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {products.map((product) => (
+        <div 
+          key={product.id} 
+          className="bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-pink-500/50 transition group flex flex-col"
+        >
+          <div className="relative h-64 bg-gray-800 overflow-hidden">
+            {product.image_url ? (
+              <img 
+                src={product.image_url} 
+                alt={product.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full text-gray-600 text-sm">
+                Anteprima non disponibile
+              </div>
+            )}
+          </div>
+          <div className="p-5 flex flex-col flex-grow">
+            <span className="text-xs text-pink-400 font-semibold uppercase tracking-wider mb-1">
+              {product.category || 'Stampa 3D'}
+            </span>
+            <h3 className="font-bold text-lg mb-2 line-clamp-1">{product.name}</h3>
+            <p className="text-gray-400 text-sm mb-4 line-clamp-2 flex-grow">
+              {product.description}
+            </p>
+            <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
+              <span className="text-xl font-extrabold text-white">
+                € {product.price ? Number(product.price).toFixed(2) : '0.00'}
+              </span>
+              <button className="px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white text-sm font-semibold rounded-lg transition shadow-lg shadow-pink-600/20">
+                Acquista
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export default function Home() {
   return (
     <div className="min-h-screen bg-gray-950 text-white font-sans">
       {/* Header / Navbar */}
@@ -75,52 +127,9 @@ export default async function Home() {
           Ultimi Arrivi in Catalogo
         </h2>
 
-        {products.length === 0 ? (
-          <div className="text-center py-20 bg-gray-900/40 rounded-2xl border border-gray-800">
-            <p className="text-gray-400 text-lg">Il catalogo è ancora vuoto o in fase di caricamento.</p>
-            <p className="text-sm text-gray-500 mt-2">Aggiungi i primi prodotti direttamente dalla dashboard di Supabase!</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <div 
-                key={product.id} 
-                className="bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-pink-500/50 transition group flex flex-col"
-              >
-                <div className="relative h-64 bg-gray-800 overflow-hidden">
-                  {product.image_url ? (
-                    <img 
-                      src={product.image_url} 
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                    />
-                  ) : (
-                    <div className="flex items-center justify-center h-full text-gray-600 text-sm">
-                      Anteprima non disponibile
-                    </div>
-                  )}
-                </div>
-                <div className="p-5 flex flex-col flex-grow">
-                  <span className="text-xs text-pink-400 font-semibold uppercase tracking-wider mb-1">
-                    {product.category || 'Stampa 3D'}
-                  </span>
-                  <h3 className="font-bold text-lg mb-2 line-clamp-1">{product.name}</h3>
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-2 flex-grow">
-                    {product.description}
-                  </p>
-                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
-                    <span className="text-xl font-extrabold text-white">
-                      € {product.price ? Number(product.price).toFixed(2) : '0.00'}
-                    </span>
-                    <button className="px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white text-sm font-semibold rounded-lg transition shadow-lg shadow-pink-600/20">
-                      Acquista
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        <Suspense fallback={<div className="text-center py-12 text-gray-400">Caricamento prodotti in corso...</div>}>
+          <ProductGrid />
+        </Suspense>
       </main>
 
       {/* Footer */}
