@@ -2,9 +2,6 @@
 import { supabase } from '@/lib/supabaseClient'
 import Link from 'next/link'
 
-// Forziamo il rendering dinamico per evitare che Next.js tenti la pre-generazione statica durante la build su Vercel
-export const dynamic = 'force-dynamic'
-
 interface Product {
   id: string
   name: string
