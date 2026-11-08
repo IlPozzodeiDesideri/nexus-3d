@@ -134,7 +134,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-gray-800 mt-20 py-8 text-center text-gray-500 text-sm">
-        <p>&copy; {new Date().getFullYear()} Nexus-3D Store. Tutti i diritti riservati.</p>
+        <p>&copy; 2026 Nexus-3D Store. Tutti i diritti riservati.</p>
       </footer>
     </div>
   )
