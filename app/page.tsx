@@ -2,6 +2,8 @@
 import { supabase } from '@/lib/supabaseClient'
 import Link from 'next/link'
 
+export const instant = false
+
 interface Product {
   id: string
   name: string
