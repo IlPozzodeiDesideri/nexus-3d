@@ -70,9 +70,6 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen bg-[#f4f6f9] text-slate-800 font-sans selection:bg-cyan-500 selection:text-white ${isRtl ? 'rtl' : 'ltr'}`} dir={isRtl ? 'rtl' : 'ltr'}>
-      {/* Pattern Griglia High-Tech di Sfondo */}
-      <div className="fixed inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0"></div>
-
       {/* Header High-Tech */}
       <header className="border-b border-slate-200/80 bg-white/70 backdrop-blur-lg sticky top-0 z-50 shadow-xs">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center flex-wrap gap-4 relative z-10">
@@ -114,23 +111,34 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section Futuristic Light */}
-      <section id="home" className="relative py-32 px-6 text-center overflow-hidden z-10">
-        <div className="max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 text-[11px] font-mono font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 rounded-full shadow-2xs mb-8">
-            <span className="w-2 h-2 rounded-full bg-cyan-500"></span>
+      {/* Hero Section con Immagine di Sfondo Spettacolare in Tema e Overlay */}
+      <section id="home" className="relative py-36 px-6 text-center overflow-hidden z-10">
+        {/* Immagine di sfondo ad alto impatto (Laboratorio 3D / Tecnologia) */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=2000&q=80" 
+            alt="3D Printing Lab Background" 
+            className="w-full h-full object-cover object-center scale-105 animate-pulse duration-[10000ms]"
+          />
+          {/* Overlay scuro professionale per far risaltare i testi */}
+          <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-[2px]"></div>
+        </div>
+
+        <div className="max-w-4xl mx-auto relative z-10">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 text-[11px] font-mono font-bold text-cyan-300 bg-cyan-950/80 border border-cyan-500/40 rounded-full shadow-lg mb-8 backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
             {text.badge}
-          </div>
-          <h1 className="text-4xl md:text-6xl font-black tracking-tight text-slate-900 leading-[1.15]">
+          </span>
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white leading-[1.15] drop-shadow-md">
             {text.heroTitle1} <br />
-            <span className="bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-350 bg-clip-text text-transparent">
               {text.heroTitle2}
             </span>
           </h1>
-          <p className="mt-8 text-base md:text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">{text.heroDesc}</p>
+          <p className="mt-8 text-base md:text-lg text-slate-200 max-w-2xl mx-auto font-normal leading-relaxed drop-shadow">{text.heroDesc}</p>
           <div className="mt-10 flex justify-center gap-4 flex-wrap font-mono">
-            <a href="#products" className="px-8 py-3.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-lg transition shadow-lg shadow-cyan-600/20 uppercase tracking-wider">{text.exploreProducts}</a>
-            <a href="#contact" className="px-8 py-3.5 bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold rounded-lg border border-slate-300 transition shadow-2xs uppercase tracking-wider">{text.contactUs}</a>
+            <a href="#products" className="px-8 py-3.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-extrabold rounded-lg transition shadow-xl shadow-cyan-500/20 uppercase tracking-wider">{text.exploreProducts}</a>
+            <a href="#contact" className="px-8 py-3.5 bg-slate-900/80 hover:bg-slate-800 text-white text-xs font-bold rounded-lg border border-slate-700 transition shadow-xl uppercase tracking-wider backdrop-blur-md">{text.contactUs}</a>
           </div>
         </div>
       </section>
@@ -155,7 +163,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Griglia 3 Foto Chi Siamo (Cornice Tech Glassmorphism) */}
+          {/* Griglia 3 Foto Chi Siamo */}
           <div className="grid grid-cols-2 gap-4">
             <div 
               onClick={() => siteConfig.aboutImage && setSelectedImage(siteConfig.aboutImage)} 
