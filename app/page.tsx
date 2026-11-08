@@ -1,69 +1,126 @@
-import Image from "next/image";
+// app/page.tsx
+import { supabase } from '@/lib/supabaseClient'
+import Link from 'next/link'
 
-export default function Home() {
+// Definizione del tipo Prodotto basato sulla tabella Supabase
+interface Product {
+  id: string
+  name: string
+  description: string
+  price: number
+  image_url: string
+  category: string
+}
+
+async function getProducts() {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error('Errore nel recupero prodotti:', error.message)
+    return []
+  }
+
+  return data as Product[]
+}
+
+export default async function Home() {
+  const products = await getProducts()
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <div className="min-h-screen bg-gray-950 text-white">
+      {/* Header / Navbar provvisoria */}
+      <header className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-black tracking-wider bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+            NEXUS-3D
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <nav className="flex gap-6 text-sm font-medium text-gray-300">
+            <Link href="/" className="hover:text-pink-400 transition">Catalogo</Link>
+            <Link href="/custom" className="hover:text-pink-400 transition">Richiedi 3D</Link>
+            <Link href="/community" className="hover:text-pink-400 transition">Community</Link>
+          </nav>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="relative py-20 px-4 text-center bg-gradient-to-b from-purple-900/20 to-transparent">
+        <div className="max-w-4xl mx-auto">
+          <span className="px-3 py-1 text-xs font-semibold bg-pink-500/10 text-pink-400 rounded-full border border-pink-500/20">
+            Stampe 3D di Alta Qualità • Anime & Manga
+          </span>
+          <h2 className="mt-6 text-4xl md:text-6xl font-extrabold tracking-tight">
+            Porta i tuoi eroi preferiti <br />
+            <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
+              nella realtà tridimensionale
+            </span>
+          </h2>
+          <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">
+            Action figure, statue dettagliate e gadget unici stampati in 3D con cura artigianale e rifiniti a mano.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+      </section>
+
+      {/* Vetrina Prodotti */}
+      <main className="max-w-7xl mx-auto px-4 py-12">
+        <h3 className="text-2xl font-bold mb-8 border-l-4 border-pink-500 pl-4">
+          Ultimi Arrivi in Catalogo
+        </h3>
+
+        {products.length === 0 ? (
+          <div className="text-center py-20 bg-gray-900/40 rounded-2xl border border-gray-800">
+            <p className="text-gray-400 text-lg">Il catalogo è ancora vuoto o in fase di caricamento.</p>
+            <p className="text-sm text-gray-500 mt-2">Aggiungi i primi prodotti tramite la dashboard di Supabase!</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {products.map((product) => (
+              <div 
+                key={product.id} 
+                className="bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-pink-500/50 transition group flex flex-col"
+              >
+                <div className="relative h-64 bg-gray-800 overflow-hidden">
+                  {product.image_url ? (
+                    <img 
+                      src={product.image_url} 
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-gray-600 text-sm">
+                      Anteprima non disponibile
+                    </div>
+                  )}
+                </div>
+                <div className="p-5 flex flex-col flex-grow">
+                  <span className="text-xs text-pink-400 font-semibold uppercase tracking-wider mb-1">
+                    {product.category || 'Collezione'}
+                  </span>
+                  <h4 className="font-bold text-lg mb-2 line-clamp-1">{product.name}</h4>
+                  <p className="text-gray-400 text-sm mb-4 line-clamp-2 flex-grow">
+                    {product.description}
+                  </p>
+                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
+                    <span className="text-xl font-extrabold text-white">
+                      € {product.price?.toFixed(2)}
+                    </span>
+                    <button className="px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white text-sm font-semibold rounded-lg transition shadow-lg shadow-pink-600/20">
+                      Acquista
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </main>
+
+      {/* Footer */}
+      <footer className="border-t border-gray-800 mt-20 py-8 text-center text-gray-500 text-sm">
+        <p>&copy; {new Date().getFullYear()} Nexus-3D Store. Tutti i diritti riservati.</p>
+      </footer>
     </div>
-  );
+  )
 }
