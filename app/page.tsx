@@ -10,7 +10,11 @@ type GalleryItem = {
   id: string
   image_url: string
   title: string
+  price: number
 }
+
+// Tasso di cambio indicativo EUR -> USD
+const EUR_TO_USD_RATE = 1.10
 
 export default function Home() {
   const [lang, setLang] = useState<Language>('it')
@@ -102,7 +106,7 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen bg-[#f4f6f9] text-slate-800 font-sans selection:bg-cyan-500 selection:text-white ${isRtl ? 'rtl' : 'ltr'}`} dir={isRtl ? 'rtl' : 'ltr'}>
-      {/* Header ottimizzato per smartphone in verticale */}
+      {/* Header */}
       <header className="border-b border-slate-200/80 bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center flex-wrap gap-2 relative z-10">
           <Link href="/" className="flex items-center gap-2 group">
@@ -133,7 +137,6 @@ export default function Home() {
               <option value="ar">🇸🇦 AR</option>
             </select>
 
-            {/* Tasto Admin sempre visibile anche su smartphone verticale */}
             <Link href="/admin" className="text-[11px] sm:text-xs font-mono font-bold text-slate-700 hover:text-cyan-600 border border-slate-300 bg-white px-2.5 py-1.5 rounded transition shadow-2xs">
               ⚙️ Admin
             </Link>
@@ -235,7 +238,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Vetrina Prodotti */}
+      {/* Vetrina Prodotti Dinamica con Prezzo EUR (€) e USD ($) */}
       <section id="products" className="py-24 px-6 border-t border-slate-200 bg-[#f8fafc] z-10 relative">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -250,26 +253,37 @@ export default function Home() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-              {productsGallery.map((item) => (
-                <div key={item.id} className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-2xs hover:shadow-md transition flex flex-col group">
-                  <div 
-                    onClick={() => setSelectedImage(item.image_url)}
-                    className="h-64 bg-slate-50 overflow-hidden flex items-center justify-center cursor-pointer relative p-4 border-b border-slate-100"
-                  >
-                    <img src={item.image_url} alt={item.title} className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
-                    <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ INGRANDISCI ]</div>
-                  </div>
-                  <div className="p-4 flex items-center justify-between">
-                    <span className="text-xs font-mono font-semibold text-slate-700">{item.title}</span>
-                    <button 
+              {productsGallery.map((item) => {
+                const priceEur = Number(item.price) || 0
+                const priceUsd = (priceEur * EUR_TO_USD_RATE).toFixed(2)
+
+                return (
+                  <div key={item.id} className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-2xs hover:shadow-md transition flex flex-col group">
+                    <div 
                       onClick={() => setSelectedImage(item.image_url)}
-                      className="text-cyan-600 text-xs font-mono font-bold hover:text-cyan-700"
+                      className="h-64 bg-slate-50 overflow-hidden flex items-center justify-center cursor-pointer relative p-4 border-b border-slate-100"
                     >
-                      {text.moreInfo}
-                    </button>
+                      <img src={item.image_url} alt={item.title} className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
+                      <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ INGRANDISCI ]</div>
+                    </div>
+                    
+                    <div className="p-4 flex flex-col gap-2 flex-grow">
+                      <h3 className="text-sm font-bold text-slate-900">{item.title}</h3>
+                      
+                      {/* Badge Prezzo in Doppia Valuta (€ e $) */}
+                      <div className="mt-auto pt-2 flex items-center justify-between border-t border-slate-100">
+                        <div className="font-mono text-xs font-bold text-slate-800">
+                          <span className="text-cyan-600 font-extrabold text-sm">€ {priceEur.toFixed(2)}</span>
+                          <span className="text-slate-400 ml-2 font-normal text-[11px]">($ {priceUsd})</span>
+                        </div>
+                        <a href="#contact" className="text-cyan-600 text-xs font-mono font-bold hover:text-cyan-700">
+                          {text.moreInfo}
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           )}
         </div>
