@@ -21,6 +21,7 @@ export default function AdminPage() {
   const [savingImages, setSavingImages] = useState(false)
   const [uploadingAbout, setUploadingAbout] = useState<string | null>(null)
   const [uploadingGallery, setUploadingGallery] = useState(false)
+  const [updatingTitleId, setUpdatingTitleId] = useState<string | null>(null)
 
   const [settings, setSettings] = useState({
     companyName: 'Nexus-3D',
@@ -120,7 +121,7 @@ export default function AdminPage() {
         const { data: publicUrlData } = supabase.storage.from('images').getPublicUrl(fileName)
         await supabase.from('products_gallery').insert({
           image_url: publicUrlData.publicUrl,
-          title: file.name.substring(0, 20)
+          title: file.name.replace(/\.[^/.]+$/, "") // Nome del file senza estensione come titolo iniziale
         })
       }
     }
@@ -132,6 +133,29 @@ export default function AdminPage() {
 
     if (updatedGallery) setGalleryItems(updatedGallery)
     setUploadingGallery(false)
+  }
+
+  // Modifica locale del nome foto nello stato
+  const handleTitleChange = (id: string, newTitle: string) => {
+    setGalleryItems(prev =>
+      prev.map(item => item.id === id ? { ...item, title: newTitle } : item)
+    )
+  }
+
+  // Salvataggio del nuovo nome su Supabase
+  const handleSaveTitle = async (id: string, newTitle: string) => {
+    setUpdatingTitleId(id)
+    const { error } = await supabase
+      .from('products_gallery')
+      .update({ title: newTitle })
+      .eq('id', id)
+
+    setUpdatingTitleId(null)
+    if (error) {
+      alert('Errore durante il salvataggio del nome: ' + error.message)
+    } else {
+      alert('Nome della foto aggiornato con successo!')
+    }
   }
 
   const handleDeleteGalleryItem = async (id: string) => {
@@ -291,12 +315,12 @@ export default function AdminPage() {
           </button>
         </div>
 
-        {/* Blocco 3: Vetrina Prodotti */}
+        {/* Blocco 3: Vetrina Prodotti con Modifica Nome Foto */}
         <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-4 w-full">
           <div className="flex flex-col gap-3 w-full">
             <div>
               <h2 className="text-sm font-bold text-cyan-400 uppercase tracking-wider">Vetrina Prodotti ({galleryItems.length})</h2>
-              <p className="text-[11px] text-slate-400">Galleria dinamica</p>
+              <p className="text-[11px] text-slate-400">Gestisci foto e rinomina i modelli 3D</p>
             </div>
             <label className="w-full text-center py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs rounded-lg cursor-pointer shadow-md block">
               <span>➕ Aggiungi Nuove Foto</span>
@@ -311,19 +335,39 @@ export default function AdminPage() {
               Nessuna foto presente.
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-3 w-full">
+            <div className="grid grid-cols-1 gap-4 w-full">
               {galleryItems.map((item) => (
                 <div key={item.id} className="bg-slate-950 border border-slate-800 rounded-lg p-3 flex flex-col gap-3">
-                  <div className="h-36 w-full flex items-center justify-center overflow-hidden rounded bg-slate-900 p-2">
+                  <div className="h-40 w-full flex items-center justify-center overflow-hidden rounded bg-slate-900 p-2">
                     <img src={item.image_url} alt={item.title} className="max-h-full max-w-full object-contain" />
                   </div>
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs text-slate-400 truncate">{item.title}</span>
+                  
+                  {/* Modifica del Titolo / Nome Foto */}
+                  <div className="space-y-2">
+                    <label className="block text-[11px] text-slate-400 font-medium">Nome / Titolo Foto:</label>
+                    <div className="flex items-center gap-2">
+                      <input 
+                        type="text" 
+                        value={item.title} 
+                        onChange={(e) => handleTitleChange(item.id, e.target.value)}
+                        className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-white text-xs focus:outline-none focus:border-cyan-500"
+                      />
+                      <button 
+                        onClick={() => handleSaveTitle(item.id, item.title)}
+                        disabled={updatingTitleId === item.id}
+                        className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition cursor-pointer disabled:opacity-50"
+                      >
+                        {updatingTitleId === item.id ? '...' : '💾 OK'}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end pt-1">
                     <button 
                       onClick={() => handleDeleteGalleryItem(item.id)}
-                      className="px-3 py-1.5 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white text-xs font-bold rounded-lg border border-red-500/30 transition cursor-pointer"
+                      className="px-3 py-1.5 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white text-xs font-bold rounded-lg border border-red-500/30 transition cursor-pointer w-full text-center"
                     >
-                      🗑️ Elimina
+                      🗑️ Elimina Foto
                     </button>
                   </div>
                 </div>
