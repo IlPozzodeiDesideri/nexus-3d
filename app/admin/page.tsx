@@ -19,8 +19,9 @@ export default function AdminPage() {
     fiscalCode: 'C.F. RSSMRA80A01F839X',
     email: 'info@nexus-3d.it',
     phone: '+39 081 1234567',
-    heroImage: '',
     aboutImage: '',
+    aboutImage2: '',
+    aboutImage3: '',
     p1Image: '',
     p2Image: '',
     p3Image: '',
@@ -42,8 +43,9 @@ export default function AdminPage() {
           fiscalCode: data.fiscal_code || '',
           email: data.email || '',
           phone: data.phone || '',
-          heroImage: data.hero_image || '',
           aboutImage: data.about_image || '',
+          aboutImage2: data.about_image2 || '',
+          aboutImage3: data.about_image3 || '',
           p1Image: data.p1_image || '',
           p2Image: data.p2_image || '',
           p3Image: data.p3_image || '',
@@ -67,18 +69,15 @@ export default function AdminPage() {
     setSettings({ ...settings, [e.target.name]: e.target.value })
   }
 
-  // Gestore caricamento file locale su Supabase Storage
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, keyName: string) => {
     const file = e.target.files?.[0]
     if (!file) return
 
     setUploading(keyName)
-
-    // Nome file univoco per evitare sovrascritture
     const fileExt = file.name.split('.').pop()
     const fileName = `${keyName}-${Date.now()}.${fileExt}`
 
-    const { data: uploadData, error: uploadError } = await supabase
+    const { error: uploadError } = await supabase
       .storage
       .from('images')
       .upload(fileName, file)
@@ -89,7 +88,6 @@ export default function AdminPage() {
       return
     }
 
-    // Ricava l'URL pubblico del file appena caricato
     const { data: publicUrlData } = supabase
       .storage
       .from('images')
@@ -113,8 +111,9 @@ export default function AdminPage() {
         fiscal_code: settings.fiscalCode,
         email: settings.email,
         phone: settings.phone,
-        hero_image: settings.heroImage,
         about_image: settings.aboutImage,
+        about_image2: settings.aboutImage2,
+        about_image3: settings.aboutImage3,
         p1_image: settings.p1Image,
         p2_image: settings.p2Image,
         p3_image: settings.p3Image,
@@ -125,13 +124,13 @@ export default function AdminPage() {
     if (error) {
       alert('Errore salvataggio: ' + error.message)
     } else {
-      alert('Tutti i dati e le immagini sono stati pubblicati sul sito!')
+      alert('Tutti i dati e le 6 immagini sono stati pubblicati sul sito!')
     }
   }
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center px-4 font-sans">
         <div className="bg-gray-900 border border-gray-800 p-8 rounded-2xl max-w-md w-full shadow-2xl">
           <h1 className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Admin Nexus-3D</h1>
           {error && <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-lg">{error}</div>}
@@ -160,7 +159,7 @@ export default function AdminPage() {
         </div>
 
         <form onSubmit={handleSave} className="space-y-8">
-          {/* Sezione Dati Aziendali */}
+          {/* Dati Societari */}
           <div className="bg-gray-900 border border-gray-800 p-6 rounded-2xl space-y-6">
             <h2 className="text-xl font-bold text-pink-400">Dati Societari</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -191,41 +190,56 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* Sezione Gestione Immagini */}
+          {/* Gestione Immagini Chi Siamo (3 Foto) */}
           <div className="bg-gray-900 border border-gray-800 p-6 rounded-2xl space-y-6">
-            <h2 className="text-xl font-bold text-pink-400">Gestione Immagini del Sito (Carica dal PC)</h2>
-
-            <div className="space-y-6">
-              {/* Immagine Chi Siamo / Showroom */}
+            <h2 className="text-xl font-bold text-pink-400">Immagini Sezione "Chi Siamo" (3 Foto)</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Immagine Sezione Chi Siamo / Showroom</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Foto 1 Chi Siamo</label>
                 <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'aboutImage')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
-                {uploading === 'aboutImage' && <p className="text-xs text-pink-400 mt-1">Caricamento in corso...</p>}
-                {settings.aboutImage && <img src={settings.aboutImage} alt="Preview Chi Siamo" className="mt-3 h-32 rounded-lg object-cover border border-gray-800" />}
+                {uploading === 'aboutImage' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
+                {settings.aboutImage && <img src={settings.aboutImage} alt="About 1" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
               </div>
 
-              {/* Prodotti 1, 2, 3 */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray-800">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Prodotto 1 (Action Figure)</label>
-                  <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'p1Image')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
-                  {uploading === 'p1Image' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
-                  {settings.p1Image && <img src={settings.p1Image} alt="Prodotto 1" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Foto 2 Chi Siamo</label>
+                <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'aboutImage2')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
+                {uploading === 'aboutImage2' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
+                {settings.aboutImage2 && <img src={settings.aboutImage2} alt="About 2" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Prodotto 2 (Statua)</label>
-                  <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'p2Image')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
-                  {uploading === 'p2Image' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
-                  {settings.p2Image && <img src={settings.p2Image} alt="Prodotto 2" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Foto 3 Chi Siamo</label>
+                <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'aboutImage3')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
+                {uploading === 'aboutImage3' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
+                {settings.aboutImage3 && <img src={settings.aboutImage3} alt="About 3" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
+              </div>
+            </div>
+          </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Prodotto 3 (Prototipo)</label>
-                  <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'p3Image')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
-                  {uploading === 'p3Image' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
-                  {settings.p3Image && <img src={settings.p3Image} alt="Prodotto 3" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
-                </div>
+          {/* Gestione Immagini Prodotti */}
+          <div className="bg-gray-900 border border-gray-800 p-6 rounded-2xl space-y-6">
+            <h2 className="text-xl font-bold text-pink-400">Immagini Vetrina Prodotti</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Prodotto 1 (Action Figure)</label>
+                <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'p1Image')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
+                {uploading === 'p1Image' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
+                {settings.p1Image && <img src={settings.p1Image} alt="P1" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Prodotto 2 (Statua)</label>
+                <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'p2Image')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
+                {uploading === 'p2Image' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
+                {settings.p2Image && <img src={settings.p2Image} alt="P2" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Prodotto 3 (Prototipo)</label>
+                <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'p3Image')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
+                {uploading === 'p3Image' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
+                {settings.p3Image && <img src={settings.p3Image} alt="P3" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
               </div>
             </div>
           </div>
