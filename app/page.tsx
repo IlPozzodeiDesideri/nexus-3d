@@ -2,7 +2,9 @@
 import { supabase } from '@/lib/supabaseClient'
 import Link from 'next/link'
 
-// Definizione del tipo Prodotto basato sulla tabella Supabase
+// Forziamo il rendering dinamico per evitare che Next.js tenti la pre-generazione statica durante la build su Vercel
+export const dynamic = 'force-dynamic'
+
 interface Product {
   id: string
   name: string
@@ -13,30 +15,35 @@ interface Product {
 }
 
 async function getProducts() {
-  const { data, error } = await supabase
-    .from('products')
-    .select('*')
-    .order('created_at', { ascending: false })
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .order('created_at', { ascending: false })
 
-  if (error) {
-    console.error('Errore nel recupero prodotti:', error.message)
+    if (error) {
+      console.error('Errore nel recupero prodotti:', error.message)
+      return []
+    }
+
+    return (data || []) as Product[]
+  } catch (err) {
+    console.error('Errore inatteso durante il fetch dei prodotti:', err)
     return []
   }
-
-  return data as Product[]
 }
 
 export default async function Home() {
   const products = await getProducts()
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
-      {/* Header / Navbar provvisoria */}
+    <div className="min-h-screen bg-gray-950 text-white font-sans">
+      {/* Header / Navbar */}
       <header className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-black tracking-wider bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+          <Link href="/" className="text-2xl font-black tracking-wider bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
             NEXUS-3D
-          </h1>
+          </Link>
           <nav className="flex gap-6 text-sm font-medium text-gray-300">
             <Link href="/" className="hover:text-pink-400 transition">Catalogo</Link>
             <Link href="/custom" className="hover:text-pink-400 transition">Richiedi 3D</Link>
@@ -51,12 +58,12 @@ export default async function Home() {
           <span className="px-3 py-1 text-xs font-semibold bg-pink-500/10 text-pink-400 rounded-full border border-pink-500/20">
             Stampe 3D di Alta Qualità • Anime & Manga
           </span>
-          <h2 className="mt-6 text-4xl md:text-6xl font-extrabold tracking-tight">
+          <h1 className="mt-6 text-4xl md:text-6xl font-extrabold tracking-tight">
             Porta i tuoi eroi preferiti <br />
             <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
               nella realtà tridimensionale
             </span>
-          </h2>
+          </h1>
           <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">
             Action figure, statue dettagliate e gadget unici stampati in 3D con cura artigianale e rifiniti a mano.
           </p>
@@ -65,14 +72,14 @@ export default async function Home() {
 
       {/* Vetrina Prodotti */}
       <main className="max-w-7xl mx-auto px-4 py-12">
-        <h3 className="text-2xl font-bold mb-8 border-l-4 border-pink-500 pl-4">
+        <h2 className="text-2xl font-bold mb-8 border-l-4 border-pink-500 pl-4">
           Ultimi Arrivi in Catalogo
-        </h3>
+        </h2>
 
         {products.length === 0 ? (
           <div className="text-center py-20 bg-gray-900/40 rounded-2xl border border-gray-800">
             <p className="text-gray-400 text-lg">Il catalogo è ancora vuoto o in fase di caricamento.</p>
-            <p className="text-sm text-gray-500 mt-2">Aggiungi i primi prodotti tramite la dashboard di Supabase!</p>
+            <p className="text-sm text-gray-500 mt-2">Aggiungi i primi prodotti direttamente dalla dashboard di Supabase!</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -96,15 +103,15 @@ export default async function Home() {
                 </div>
                 <div className="p-5 flex flex-col flex-grow">
                   <span className="text-xs text-pink-400 font-semibold uppercase tracking-wider mb-1">
-                    {product.category || 'Collezione'}
+                    {product.category || 'Stampa 3D'}
                   </span>
-                  <h4 className="font-bold text-lg mb-2 line-clamp-1">{product.name}</h4>
+                  <h3 className="font-bold text-lg mb-2 line-clamp-1">{product.name}</h3>
                   <p className="text-gray-400 text-sm mb-4 line-clamp-2 flex-grow">
                     {product.description}
                   </p>
                   <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
                     <span className="text-xl font-extrabold text-white">
-                      € {product.price?.toFixed(2)}
+                      € {product.price ? Number(product.price).toFixed(2) : '0.00'}
                     </span>
                     <button className="px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white text-sm font-semibold rounded-lg transition shadow-lg shadow-pink-600/20">
                       Acquista
