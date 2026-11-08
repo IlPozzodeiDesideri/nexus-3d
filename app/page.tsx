@@ -1,18 +1,15 @@
-// app/admin/page.tsx
+// app/page.tsx
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { supabase } from '@/lib/supabaseClient'
 
-export default function AdminPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [saving, setSaving] = useState(false)
-  const [uploading, setUploading] = useState<string | null>(null)
+type Language = 'it' | 'en' | 'es' | 'fr' | 'de' | 'ar'
 
-  const [settings, setSettings] = useState({
+export default function Home() {
+  const [lang, setLang] = useState<Language>('it')
+  const [siteConfig, setSiteConfig] = useState({
     companyName: 'Nexus-3D',
     address: 'Via Roma 123, Napoli (NA)',
     taxId: 'P.IVA 01234567890',
@@ -27,15 +24,15 @@ export default function AdminPage() {
   })
 
   useEffect(() => {
-    async function loadSettings() {
-      const { data } = await supabase
+    async function fetchConfig() {
+      const { data, error } = await supabase
         .from('site_config')
         .select('*')
         .eq('id', 'main')
         .single()
 
-      if (data) {
-        setSettings({
+      if (data && !error) {
+        setSiteConfig({
           companyName: data.company_name || 'Nexus-3D',
           address: data.address || '',
           taxId: data.tax_id || '',
@@ -50,191 +47,127 @@ export default function AdminPage() {
         })
       }
     }
-    loadSettings()
+    fetchConfig()
   }, [])
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (username === 'admin' && password === 'Alessandro') {
-      setIsAuthenticated(true)
-      setError('')
-    } else {
-      setError('Credenziali non valide.')
-    }
+  const t: Record<Language, any> = {
+    it: {
+      navHome: 'Home', navAbout: 'Chi Siamo', navProducts: 'Prodotti & Servizi', navContact: 'Contatti', adminArea: 'Area Admin', requestQuote: 'Richiedi Preventivo', badge: 'Stampe 3D di Alta Qualità • Design & Artigianato', heroTitle1: 'Porta le tue idee', heroTitle2: 'nella realtà tridimensionale', heroDesc: `Realizziamo prototipi, action figure, statue dettagliate e oggetti di design unici stampati in 3D da ${siteConfig.companyName}.`, exploreProducts: 'Scopri i Prodotti', contactUs: 'Contattaci', aboutTag: 'Chi Siamo', aboutTitle: 'Innovazione e passione per il dettaglio', aboutDesc: `${siteConfig.companyName} nasce dalla passione per la tecnologia di stampa tridimensionale.`, yearsExp: '+5 Anni', yearsExpDesc: 'Nel settore 3D', craftsmanship: '100%', craftsmanshipDesc: 'Finitura artigianale', showroomText: '[ Immagine Showroom / Laboratorio 3D ]', productsTag: 'Vetrina & Servizi', productsTitle: 'I Nostri Prodotti in Evidenza', productsDesc: 'Soluzioni su misura e oggetti da collezione.', p1Title: 'Action Figure Anime', p1Desc: 'Stampa 3D ad altissima risoluzione.', p2Title: 'Statua da Collezione', p2Desc: 'Design personalizzato.', p3Title: 'Prototipazione Industriale', p3Desc: 'Componenti tecnici e prototipi.', moreInfo: 'Richiedi info →', contactTag: 'Contattaci', contactTitle: 'Parla con il nostro team', contactDesc: 'Hai un progetto in mente?', formName: 'Nome', formEmail: 'Email', formMessage: 'Messaggio', formSubmit: 'Invia Messaggio', addressLabel: 'Indirizzo:', emailLabel: 'Email:', phoneLabel: 'Telefono:', fiscalLabel: 'Dati Fiscali:', rights: 'Tutti i diritti riservati.'
+    },
+    en: { navHome: 'Home', navAbout: 'About Us', navProducts: 'Products & Services', navContact: 'Contact', adminArea: 'Admin Area', requestQuote: 'Request Quote', badge: 'High Quality 3D Printing', heroTitle1: 'Bring your ideas', heroTitle2: 'into 3D reality', heroDesc: `Unique 3D printed objects by ${siteConfig.companyName}.`, exploreProducts: 'Explore Products', contactUs: 'Contact Us', aboutTag: 'About Us', aboutTitle: 'Innovation and detail', aboutDesc: `${siteConfig.companyName} 3D printing lab.`, yearsExp: '+5 Years', yearsExpDesc: 'Experience', craftsmanship: '100%', craftsmanshipDesc: 'Handmade finish', showroomText: '[ Showroom Image ]', productsTag: 'Showcase', productsTitle: 'Featured Products', productsDesc: 'Custom 3D printing.', p1Title: 'Anime Action Figures', p1Desc: 'High resolution 3D print.', p2Title: 'Collectible Statues', p2Desc: 'Unique pieces.', p3Title: 'Industrial Prototyping', p3Desc: 'Technical parts.', moreInfo: 'More info →', contactTag: 'Contact', contactTitle: 'Get in touch', contactDesc: 'Write to us.', formName: 'Name', formEmail: 'Email', formMessage: 'Message', formSubmit: 'Send', addressLabel: 'Address:', emailLabel: 'Email:', phoneLabel: 'Phone:', fiscalLabel: 'Tax Info:', rights: 'All rights reserved.' },
+    es: { navHome: 'Inicio', navAbout: 'Nosotros', navProducts: 'Productos', navContact: 'Contacto', adminArea: 'Admin', requestQuote: 'Presupuesto', badge: 'Impresión 3D', heroTitle1: 'Tus ideas', heroTitle2: 'en realidad 3D', heroDesc: `Diseños por ${siteConfig.companyName}.`, exploreProducts: 'Productos', contactUs: 'Contacto', aboutTag: 'Nosotros', aboutTitle: 'Innovación', aboutDesc: `${siteConfig.companyName}`, yearsExp: '+5 Años', yearsExpDesc: 'Experiencia', craftsmanship: '100%', craftsmanshipDesc: 'Artesanal', showroomText: '[ Showroom ]', productsTag: 'Servicios', productsTitle: 'Productos', productsDesc: 'Soluciones 3D.', p1Title: 'Figuras Anime', p1Desc: 'Alta resolución.', p2Title: 'Estatua', p2Desc: 'Colección.', p3Title: 'Prototipo', p3Desc: 'Industrial.', moreInfo: 'Info →', contactTag: 'Contacto', contactTitle: 'Habla con noi', contactDesc: 'Escríbenos.', formName: 'Nombre', formEmail: 'Email', formMessage: 'Mensaje', formSubmit: 'Enviar', addressLabel: 'Dirección:', emailLabel: 'Email:', phoneLabel: 'Teléfono:', fiscalLabel: 'Datos:', rights: 'Derechos reservados.' },
+    fr: { navHome: 'Accueil', navAbout: 'À Propos', navProducts: 'Produits', navContact: 'Contact', adminArea: 'Admin', requestQuote: 'Devis', badge: 'Impression 3D', heroTitle1: 'Vos idées', heroTitle2: 'en réalité 3D', heroDesc: `Projets par ${siteConfig.companyName}.`, exploreProducts: 'Produits', contactUs: 'Contact', aboutTag: 'À Propos', aboutTitle: 'Innovation', aboutDesc: `${siteConfig.companyName}`, yearsExp: '+5 Ans', yearsExpDesc: 'Expérience', craftsmanship: '100%', craftsmanshipDesc: 'Artisanal', showroomText: '[ Showroom ]', productsTag: 'Services', productsTitle: 'Produits', productsDesc: 'Impression 3D.', p1Title: 'Figurines', p1Desc: 'Haute résolution.', p2Title: 'Statue', p2Desc: 'Collection.', p3Title: 'Prototypage', p3Desc: 'Industriel.', moreInfo: 'Info →', contactTag: 'Contact', contactTitle: 'Contactez-nous', contactDesc: 'Écrivez-nous.', formName: 'Nom', formEmail: 'E-mail', formMessage: 'Message', formSubmit: 'Envoyer', addressLabel: 'Adresse :', emailLabel: 'E-mail :', phoneLabel: 'Téléphone :', fiscalLabel: 'Fiscal :', rights: 'Tous droits réservés.' },
+    de: { navHome: 'Startseite', navAbout: 'Über uns', navProducts: 'Produkte', navContact: 'Kontakt', adminArea: 'Admin', requestQuote: 'Angebot', badge: '3D-Druck', heroTitle1: 'Ihre Ideen', heroTitle2: 'in 3D-Realität', heroDesc: `Erstellt von ${siteConfig.companyName}.`, exploreProducts: 'Produkte', contactUs: 'Kontakt', aboutTag: 'Über uns', aboutTitle: 'Innovation', aboutDesc: `${siteConfig.companyName}`, yearsExp: '+5 Jahre', yearsExpDesc: 'Erfahrung', craftsmanship: '100%', craftsmanshipDesc: 'Handarbeit', showroomText: '[ Showroom ]', productsTag: 'Dienste', productsTitle: 'Produkte', productsDesc: '3D-Lösungen.', p1Title: 'Figuren', p1Desc: 'Hohe Auflösung.', p2Title: 'Statue', p2Desc: 'Sammlung.', p3Title: 'Prototyping', p3Desc: 'Industriell.', moreInfo: 'Infos →', contactTag: 'Kontakt', contactTitle: 'Unser Team', contactDesc: 'Schreiben Sie uns.', formName: 'Name', formEmail: 'E-Mail', formMessage: 'Nachricht', formSubmit: 'Senden', addressLabel: 'Adresse:', emailLabel: 'E-Mail:', phoneLabel: 'Telefon:', fiscalLabel: 'Steuer:', rights: 'Alle Rechte vorbehalten.' },
+    ar: { navHome: 'الرئيسية', navAbout: 'من نحن', navProducts: 'المنتجات', navContact: 'اتصل بنا', navAdmin: 'التحكم', requestQuote: 'طلب سعر', badge: 'طباعة 3د', heroTitle1: 'أفكارك', heroTitle2: 'واقع 3D', heroDesc: `بواسطة ${siteConfig.companyName}.`, exploreProducts: 'المنتجات', contactUs: 'اتصل بنا', aboutTag: 'من نحن', aboutTitle: 'ابتكار', aboutDesc: `${siteConfig.companyName}`, yearsExp: '+5 سنوات', yearsExpDesc: 'خبرة', craftsmanship: '100%', craftsmanshipDesc: 'يدوي', showroomText: '[ المعرض ]', productsTag: 'خدمات', productsTitle: 'منتجات', productsDesc: 'طباعة 3د.', p1Title: 'مجسمات', p1Desc: 'دقة عالية.', p2Title: 'تمثال', p2Desc: 'تحصيل.', p3Title: 'نموذج', p3Desc: 'صناعي.', moreInfo: 'تفاصيل ←', contactTag: 'اتصل', contactTitle: 'فريقنا', contactDesc: 'راسلنا.', formName: 'الاسم', formEmail: 'البريد', formMessage: 'الرسالة', formSubmit: 'إرسال', addressLabel: 'العنوان:', emailLabel: 'البريد:', phoneLabel: 'الهاتف:', fiscalLabel: 'الضريبي:', rights: 'جميع الحقوق محفوظة.' }
   }
 
-  const handleSettingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings({ ...settings, [e.target.name]: e.target.value })
-  }
-
-  // Gestore caricamento file locale su Supabase Storage
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, keyName: string) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-
-    setUploading(keyName)
-
-    // Nome file univoco per evitare sovrascritture
-    const fileExt = file.name.split('.').pop()
-    const fileName = `${keyName}-${Date.now()}.${fileExt}`
-
-    const { data: uploadData, error: uploadError } = await supabase
-      .storage
-      .from('images')
-      .upload(fileName, file)
-
-    if (uploadError) {
-      alert('Errore caricamento immagine: ' + uploadError.message)
-      setUploading(null)
-      return
-    }
-
-    // Ricava l'URL pubblico del file appena caricato
-    const { data: publicUrlData } = supabase
-      .storage
-      .from('images')
-      .getPublicUrl(fileName)
-
-    setSettings((prev) => ({ ...prev, [keyName]: publicUrlData.publicUrl }))
-    setUploading(null)
-  }
-
-  const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setSaving(true)
-
-    const { error } = await supabase
-      .from('site_config')
-      .upsert({
-        id: 'main',
-        company_name: settings.companyName,
-        address: settings.address,
-        tax_id: settings.taxId,
-        fiscal_code: settings.fiscalCode,
-        email: settings.email,
-        phone: settings.phone,
-        hero_image: settings.heroImage,
-        about_image: settings.aboutImage,
-        p1_image: settings.p1Image,
-        p2_image: settings.p2Image,
-        p3_image: settings.p3Image,
-      })
-
-    setSaving(false)
-
-    if (error) {
-      alert('Errore salvataggio: ' + error.message)
-    } else {
-      alert('Tutti i dati e le immagini sono stati pubblicati sul sito!')
-    }
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center px-4">
-        <div className="bg-gray-900 border border-gray-800 p-8 rounded-2xl max-w-md w-full shadow-2xl">
-          <h1 className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Admin Nexus-3D</h1>
-          {error && <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-lg">{error}</div>}
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Username</label>
-              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-3 text-white text-sm" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Password</label>
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-3 text-white text-sm" />
-            </div>
-            <button type="submit" className="w-full py-3 bg-pink-600 text-white font-semibold rounded-lg text-sm">Accedi</button>
-          </form>
-        </div>
-      </div>
-    )
-  }
+  const text = t[lang]
+  const isRtl = lang === 'ar'
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-6 md:p-12 font-sans">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <div className="flex justify-between items-center pb-4 border-b border-gray-800">
-          <h1 className="text-3xl font-black bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Pannello Admin e Gestione Immagini</h1>
-          <button onClick={() => setIsAuthenticated(false)} className="px-4 py-2 bg-gray-900 text-gray-300 text-sm font-semibold rounded-lg border border-gray-800">Esci</button>
+    <div className={`min-h-screen bg-gray-950 text-white font-sans ${isRtl ? 'rtl' : 'ltr'}`} dir={isRtl ? 'rtl' : 'ltr'}>
+      <header className="border-b border-gray-800 bg-gray-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center flex-wrap gap-4">
+          <Link href="/" className="text-2xl font-black tracking-wider bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+            {siteConfig.companyName}
+          </Link>
+          <nav className="hidden lg:flex gap-6 text-sm font-medium text-gray-300">
+            <a href="#home" className="hover:text-pink-400">{text.navHome}</a>
+            <a href="#about" className="hover:text-pink-400">{text.navAbout}</a>
+            <a href="#products" className="hover:text-pink-400">{text.navProducts}</a>
+            <a href="#contact" className="hover:text-pink-400">{text.navContact}</a>
+          </nav>
+          <div className="flex items-center gap-3">
+            <select value={lang} onChange={(e) => setLang(e.target.value as Language)} className="bg-gray-900 border border-gray-800 text-gray-200 text-xs rounded-lg px-2.5 py-2">
+              <option value="it">🇮🇹 Italiano</option>
+              <option value="en">🇬🇧 English</option>
+              <option value="es">🇪🇸 Español</option>
+              <option value="fr">🇫🇷 Français</option>
+              <option value="de">🇩🇪 Deutsch</option>
+              <option value="ar">🇸🇦 العربية</option>
+            </select>
+            <Link href="/admin" className="hidden sm:inline-block text-xs text-gray-400 border border-gray-800 px-3 py-2 rounded-lg">{text.adminArea}</Link>
+          </div>
         </div>
+      </header>
 
-        <form onSubmit={handleSave} className="space-y-8">
-          {/* Sezione Dati Aziendali */}
-          <div className="bg-gray-900 border border-gray-800 p-6 rounded-2xl space-y-6">
-            <h2 className="text-xl font-bold text-pink-400">Dati Societari</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Nome Azienda</label>
-                <input type="text" name="companyName" value={settings.companyName} onChange={handleSettingChange} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-3 text-white text-sm" />
+      {/* Hero */}
+      <section id="home" className="py-28 px-6 text-center">
+        <div className="max-w-4xl mx-auto">
+          <span className="px-3 py-1 text-xs font-semibold bg-pink-500/10 text-pink-400 rounded-full border border-pink-500/20">{text.badge}</span>
+          <h1 className="mt-6 text-4xl md:text-6xl font-extrabold">{text.heroTitle1} <br /><span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">{text.heroTitle2}</span></h1>
+          <p className="mt-6 text-lg text-gray-400">{text.heroDesc}</p>
+        </div>
+      </section>
+
+      {/* Chi Siamo con Immagine Caricata */}
+      <section id="about" className="py-24 px-6 border-t border-gray-900 bg-gray-950">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <span className="text-xs font-semibold text-pink-400 uppercase">{text.aboutTag}</span>
+            <h2 className="mt-2 text-3xl font-bold">{text.aboutTitle}</h2>
+            <p className="mt-4 text-gray-400">{text.aboutDesc}</p>
+          </div>
+          <div className="h-80 rounded-2xl border border-gray-800 overflow-hidden flex items-center justify-center bg-gray-900">
+            {siteConfig.aboutImage ? (
+              <img src={siteConfig.aboutImage} alt="Showroom" className="w-full h-full object-cover" />
+            ) : (
+              <span className="text-gray-500">{text.showroomText}</span>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Vetrina Prodotti con Immagini Caricate */}
+      <section id="products" className="py-24 px-6 border-t border-gray-900 bg-gray-900/20">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-xs font-semibold text-pink-400 uppercase">{text.productsTag}</span>
+            <h2 className="mt-2 text-3xl font-bold">{text.productsTitle}</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+              <div className="h-64 bg-gray-800 overflow-hidden flex items-center justify-center">
+                {siteConfig.p1Image ? <img src={siteConfig.p1Image} alt="P1" className="w-full h-full object-cover" /> : <span className="text-gray-600">[ {text.p1Title} ]</span>}
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Indirizzo</label>
-                <input type="text" name="address" value={settings.address} onChange={handleSettingChange} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-3 text-white text-sm" />
+              <div className="p-6"><h3 className="text-xl font-bold mb-2">{text.p1Title}</h3><p className="text-gray-400 text-sm">{text.p1Desc}</p></div>
+            </div>
+
+            <div className="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+              <div className="h-64 bg-gray-800 overflow-hidden flex items-center justify-center">
+                {siteConfig.p2Image ? <img src={siteConfig.p2Image} alt="P2" className="w-full h-full object-cover" /> : <span className="text-gray-600">[ {text.p2Title} ]</span>}
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">P.IVA</label>
-                <input type="text" name="taxId" value={settings.taxId} onChange={handleSettingChange} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-3 text-white text-sm" />
+              <div className="p-6"><h3 className="text-xl font-bold mb-2">{text.p2Title}</h3><p className="text-gray-400 text-sm">{text.p2Desc}</p></div>
+            </div>
+
+            <div className="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+              <div className="h-64 bg-gray-800 overflow-hidden flex items-center justify-center">
+                {siteConfig.p3Image ? <img src={siteConfig.p3Image} alt="P3" className="w-full h-full object-cover" /> : <span className="text-gray-600">[ {text.p3Title} ]</span>}
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Codice Fiscale</label>
-                <input type="text" name="fiscalCode" value={settings.fiscalCode} onChange={handleSettingChange} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-3 text-white text-sm" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
-                <input type="email" name="email" value={settings.email} onChange={handleSettingChange} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-3 text-white text-sm" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Telefono</label>
-                <input type="text" name="phone" value={settings.phone} onChange={handleSettingChange} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-3 text-white text-sm" />
-              </div>
+              <div className="p-6"><h3 className="text-xl font-bold mb-2">{text.p3Title}</h3><p className="text-gray-400 text-sm">{text.p3Desc}</p></div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Sezione Gestione Immagini */}
-          <div className="bg-gray-900 border border-gray-800 p-6 rounded-2xl space-y-6">
-            <h2 className="text-xl font-bold text-pink-400">Gestione Immagini del Sito (Carica dal PC)</h2>
-
-            <div className="space-y-6">
-              {/* Immagine Chi Siamo / Showroom */}
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Immagine Sezione Chi Siamo / Showroom</label>
-                <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'aboutImage')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
-                {uploading === 'aboutImage' && <p className="text-xs text-pink-400 mt-1">Caricamento in corso...</p>}
-                {settings.aboutImage && <img src={settings.aboutImage} alt="Preview Chi Siamo" className="mt-3 h-32 rounded-lg object-cover border border-gray-800" />}
-              </div>
-
-              {/* Prodotti 1, 2, 3 */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray-800">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Prodotto 1 (Action Figure)</label>
-                  <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'p1Image')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
-                  {uploading === 'p1Image' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
-                  {settings.p1Image && <img src={settings.p1Image} alt="Prodotto 1" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Prodotto 2 (Statua)</label>
-                  <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'p2Image')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
-                  {uploading === 'p2Image' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
-                  {settings.p2Image && <img src={settings.p2Image} alt="Prodotto 2" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Prodotto 3 (Prototipo)</label>
-                  <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'p3Image')} className="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer" />
-                  {uploading === 'p3Image' && <p className="text-xs text-pink-400 mt-1">Caricamento...</p>}
-                  {settings.p3Image && <img src={settings.p3Image} alt="Prodotto 3" className="mt-3 h-28 w-full rounded-lg object-cover border border-gray-800" />}
-                </div>
-              </div>
+      {/* Contatti */}
+      <section id="contact" className="py-24 px-6 border-t border-gray-900 bg-gray-950">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div>
+            <h2 className="text-3xl font-bold">{text.contactTitle}</h2>
+            <div className="mt-8 space-y-4 text-gray-300 text-sm">
+              <p>📍 {text.addressLabel} {siteConfig.address}</p>
+              <p>📧 {text.emailLabel} {siteConfig.email}</p>
+              <p>📞 {text.phoneLabel} {siteConfig.phone}</p>
+              <p>📋 {text.fiscalLabel} {siteConfig.taxId} — {siteConfig.fiscalCode}</p>
             </div>
           </div>
+        </div>
+      </section>
 
-          <button type="submit" disabled={saving} className="w-full py-4 bg-pink-600 hover:bg-pink-500 text-white font-bold rounded-xl transition shadow-lg shadow-pink-600/25 text-lg disabled:opacity-50">
-            {saving ? 'Salvataggio in corso...' : 'Pubblica Modifiche e Immagini'}
-          </button>
-        </form>
-      </div>
+      <footer className="border-t border-gray-900 py-12 px-6 bg-gray-950 text-center text-gray-500 text-xs">
+        <p>{siteConfig.companyName} &bull; {siteConfig.address} &bull; {siteConfig.taxId}</p>
+      </footer>
     </div>
   )
 }
