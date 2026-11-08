@@ -194,7 +194,7 @@ export default function AdminPage() {
           <div className="absolute top-4 right-4">
             <Link href="/" className="text-xs text-cyan-400 hover:underline">← Torna al sito</Link>
           </div>
-          <h1 className="text-2xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">Admin Nexus-3D</h1>
+          <h1 className="text-2xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">Pannello Admin</h1>
           {error && <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-lg">{error}</div>}
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
@@ -217,7 +217,7 @@ export default function AdminPage() {
       <div className="max-w-5xl mx-auto space-y-8">
         <div className="flex justify-between items-center pb-4 border-b border-slate-800 flex-wrap gap-4">
           <div>
-            <h1 className="text-3xl font-black bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">Pannello Admin Nexus-3D</h1>
+            <h1 className="text-3xl font-black bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">Pannello Admin</h1>
             <p className="text-xs text-slate-400 mt-1">Gestione dati societari, Chi Siamo e Vetrina Prodotti illimitata</p>
           </div>
           
@@ -231,7 +231,7 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Blocco 1: Dati Societari con il suo pulsante dedicato */}
+        {/* Blocco 1: Dati Societari con pulsante Salva dati */}
         <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
           <h2 className="text-xl font-bold text-cyan-400">Dati Societari</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -266,11 +266,11 @@ export default function AdminPage() {
             disabled={savingDetails} 
             className="w-full py-3.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl transition shadow-md text-sm cursor-pointer disabled:opacity-50"
           >
-            {savingDetails ? 'Salvataggio Dati...' : '💾 Salva Dati'}
+            {savingDetails ? 'Salvataggio Dati...' : '💾 Salva dati'}
           </button>
         </div>
 
-        {/* Blocco 2: Immagini Chi Siamo con il suo pulsante dedicato */}
+        {/* Blocco 2: Immagini Chi Siamo con pulsante Salva immagini */}
         <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
           <h2 className="text-xl font-bold text-cyan-400">Immagini Sezione "Chi Siamo" (3 Foto)</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -293,7 +293,7 @@ export default function AdminPage() {
             disabled={savingImages} 
             className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition shadow-md text-sm cursor-pointer disabled:opacity-50"
           >
-            {savingImages ? 'Salvataggio Immagini...' : '🖼️ Salva Immagini'}
+            {savingImages ? 'Salvataggio Immagini...' : '🖼️ Salva immagini'}
           </button>
         </div>
 
