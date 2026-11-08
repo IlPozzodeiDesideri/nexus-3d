@@ -185,76 +185,73 @@ export default function AdminPage() {
 
   if (!isAuthenticated) {
     return (
-      <main className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-4 w-full">
-        <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-sm shadow-2xl relative">
-          <div className="absolute top-4 right-4">
-            <Link href="/" className="text-xs text-cyan-400 hover:underline">← Torna</Link>
+      <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-4 w-full">
+        <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl w-full max-w-sm shadow-xl">
+          <div className="flex justify-end mb-2">
+            <Link href="/" className="text-xs text-cyan-400 hover:underline">← Torna al sito</Link>
           </div>
-          <h1 className="text-xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">Pannello Admin</h1>
+          <h1 className="text-xl font-bold mb-4 text-white">Pannello Admin</h1>
           {error && <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-lg">{error}</div>}
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1">Username</label>
-              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-white text-sm" />
+              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white text-sm" />
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1">Password</label>
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-white text-sm" />
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white text-sm" />
             </div>
-            <button type="submit" className="w-full py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-lg text-sm transition">Accedi</button>
+            <button type="submit" className="w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-lg text-sm transition">Accedi</button>
           </form>
         </div>
-      </main>
+      </div>
     )
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white p-4 font-sans w-full">
-      <div className="max-w-4xl mx-auto space-y-6 w-full">
+    <div className="min-h-screen bg-slate-950 text-white p-4 font-sans w-full">
+      <div className="max-w-xl mx-auto space-y-6 w-full pb-12">
         
         {/* Header Admin */}
         <div className="flex flex-col gap-3 pb-4 border-b border-slate-800 w-full">
-          <div className="flex justify-between items-start w-full">
-            <div>
-              <h1 className="text-xl font-black bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">Pannello Admin</h1>
-              <p className="text-[11px] text-slate-400 mt-0.5">Gestione completa da mobile</p>
-            </div>
-            <button onClick={() => setIsAuthenticated(false)} className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold rounded-lg border border-slate-800 transition">
+          <div className="flex justify-between items-center w-full">
+            <h1 className="text-lg font-bold text-white">Pannello Admin</h1>
+            <button onClick={() => setIsAuthenticated(false)} className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold rounded-lg border border-slate-800">
               Esci
             </button>
           </div>
-          <Link href="/" className="text-center w-full py-2 bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-400 text-xs font-semibold rounded-lg border border-cyan-500/30 transition">
+          <Link href="/" className="text-center w-full py-2 bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-400 text-xs font-semibold rounded-lg border border-cyan-500/30">
             🏠 Visualizza Sito / Home
           </Link>
         </div>
 
         {/* Blocco 1: Dati Societari */}
         <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-4 w-full">
-          <h2 className="text-base font-bold text-cyan-400">Dati Societari</h2>
+          <h2 className="text-sm font-bold text-cyan-400 uppercase tracking-wider">Dati Societari</h2>
           <div className="space-y-3 w-full">
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1">Nome Azienda</label>
-              <input type="text" name="companyName" value={settings.companyName} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-white text-xs" />
+              <input type="text" name="companyName" value={settings.companyName} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white text-xs" />
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1">Indirizzo</label>
-              <input type="text" name="address" value={settings.address} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-white text-xs" />
+              <input type="text" name="address" value={settings.address} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white text-xs" />
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1">P.IVA</label>
-              <input type="text" name="taxId" value={settings.taxId} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-white text-xs" />
+              <input type="text" name="taxId" value={settings.taxId} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white text-xs" />
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1">Codice Fiscale</label>
-              <input type="text" name="fiscalCode" value={settings.fiscalCode} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-white text-xs" />
+              <input type="text" name="fiscalCode" value={settings.fiscalCode} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white text-xs" />
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1">Email</label>
-              <input type="email" name="email" value={settings.email} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-white text-xs" />
+              <input type="email" name="email" value={settings.email} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white text-xs" />
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1">Telefono</label>
-              <input type="text" name="phone" value={settings.phone} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-white text-xs" />
+              <input type="text" name="phone" value={settings.phone} onChange={handleSettingChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white text-xs" />
             </div>
           </div>
           <button 
@@ -269,15 +266,15 @@ export default function AdminPage() {
 
         {/* Blocco 2: Immagini Chi Siamo */}
         <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-4 w-full">
-          <h2 className="text-base font-bold text-cyan-400">Immagini "Chi Siamo" (3 Foto)</h2>
+          <h2 className="text-sm font-bold text-cyan-400 uppercase tracking-wider">Immagini "Chi Siamo" (3 Foto)</h2>
           <div className="space-y-4 w-full">
             {['aboutImage', 'aboutImage2', 'aboutImage3'].map((key, idx) => (
-              <div key={key} className="w-full bg-slate-950/50 p-3 rounded-lg border border-slate-800">
+              <div key={key} className="w-full bg-slate-950/60 p-3 rounded-lg border border-slate-800">
                 <label className="block text-xs font-medium text-slate-300 mb-2">Foto {idx + 1}</label>
-                <input type="file" accept="image/*" onChange={(e) => handleAboutUpload(e, key)} className="block w-full text-[11px] text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-[11px] file:font-semibold file:bg-cyan-600 file:text-white cursor-pointer" />
+                <input type="file" accept="image/*" onChange={(e) => handleAboutUpload(e, key)} className="block w-full text-[11px] text-slate-400 file:mr-2 file:py-1 file:px-2.5 file:rounded file:border-0 file:text-[11px] file:font-semibold file:bg-cyan-600 file:text-white cursor-pointer" />
                 {uploadingAbout === key && <p className="text-[11px] text-cyan-400 mt-1">Caricamento...</p>}
                 {(settings as any)[key] && (
-                  <div className="mt-3 h-36 w-full bg-slate-950 rounded-lg border border-slate-800 overflow-hidden flex items-center justify-center p-2">
+                  <div className="mt-3 h-32 w-full bg-slate-950 rounded-lg border border-slate-800 overflow-hidden flex items-center justify-center p-2">
                     <img src={(settings as any)[key]} alt={`About ${idx + 1}`} className="max-h-full max-w-full object-contain" />
                   </div>
                 )}
@@ -298,7 +295,7 @@ export default function AdminPage() {
         <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-4 w-full">
           <div className="flex flex-col gap-3 w-full">
             <div>
-              <h2 className="text-base font-bold text-cyan-400">Vetrina Prodotti ({galleryItems.length})</h2>
+              <h2 className="text-sm font-bold text-cyan-400 uppercase tracking-wider">Vetrina Prodotti ({galleryItems.length})</h2>
               <p className="text-[11px] text-slate-400">Galleria dinamica</p>
             </div>
             <label className="w-full text-center py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs rounded-lg cursor-pointer shadow-md block">
@@ -317,7 +314,7 @@ export default function AdminPage() {
             <div className="grid grid-cols-1 gap-3 w-full">
               {galleryItems.map((item) => (
                 <div key={item.id} className="bg-slate-950 border border-slate-800 rounded-lg p-3 flex flex-col gap-3">
-                  <div className="h-40 w-full flex items-center justify-center overflow-hidden rounded bg-slate-900 p-2">
+                  <div className="h-36 w-full flex items-center justify-center overflow-hidden rounded bg-slate-900 p-2">
                     <img src={item.image_url} alt={item.title} className="max-h-full max-w-full object-contain" />
                   </div>
                   <div className="flex items-center justify-between gap-2">
@@ -336,6 +333,6 @@ export default function AdminPage() {
         </div>
 
       </div>
-    </main>
+    </div>
   )
 }
