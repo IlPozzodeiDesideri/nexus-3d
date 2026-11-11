@@ -177,19 +177,197 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Chi Siamo - Foto Enormi a Singola Colonna */}
+      {/* Chi Siamo - Foto Enormi e Naturali */}
       <section id="about" className="py-16 sm:py-24 px-4 sm:px-6 border-t border-slate-200 bg-white/70 backdrop-blur-md z-10 relative w-full box-border">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
-          <div>
+        <div className="max-w-4xl mx-auto grid grid-cols-1 gap-10 items-center">
+          <div className="text-center md:text-left">
             <span className="text-[11px] font-mono font-bold text-cyan-600 uppercase tracking-widest bg-cyan-50 border border-cyan-200/60 px-3 py-1 rounded-md">{text.aboutTag}</span>
             <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">{text.aboutTitle}</h2>
-            <p className="mt-3 text-slate-600 leading-relaxed text-xs sm:text-sm md:text-base">{text.aboutDesc}</p>
-            
-            <div className="mt-6 grid grid-cols-2 gap-3 font-mono">
-              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 shadow-2xs">
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900">{text.yearsExp}</h3>
-                <p className="text-[10px] sm:text-xs text-slate-500 mt-1 uppercase font-semibold">{text.yearsExpDesc}</p>
+            <p className="mt-3 text-slate-600 leading-relaxed text-sm md:text-base">{text.aboutDesc}</p>
+          </div>
+
+          <div className="flex flex-col gap-8 w-full">
+            {siteConfig.aboutImage && (
+              <div 
+                onClick={() => setSelectedImage(siteConfig.aboutImage)} 
+                className="w-full bg-white rounded-2xl border-2 border-slate-300 overflow-hidden shadow-xl cursor-pointer group p-2 hover:border-cyan-500 transition"
+              >
+                <img src={siteConfig.aboutImage} alt="Chi Siamo 1" className="w-full h-auto object-cover rounded-xl" />
+                <div className="text-center py-2 text-xs font-mono font-bold text-slate-500 group-hover:text-cyan-600">🔍 Clicca per ingrandire a schermo intero</div>
               </div>
-              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 shadow-2xs">
-                <h3 className="text-xl sm:text-2xl font-black text-cyan-600">{text.craftsmanship}</h3>
-                <p className="
+            )}
+
+            {siteConfig.aboutImage2 && (
+              <div 
+                onClick={() => setSelectedImage(siteConfig.aboutImage2)} 
+                className="w-full bg-white rounded-2xl border-2 border-slate-300 overflow-hidden shadow-xl cursor-pointer group p-2 hover:border-cyan-500 transition"
+              >
+                <img src={siteConfig.aboutImage2} alt="Chi Siamo 2" className="w-full h-auto object-cover rounded-xl" />
+                <div className="text-center py-2 text-xs font-mono font-bold text-slate-500 group-hover:text-cyan-600">🔍 Clicca per ingrandire a schermo intero</div>
+              </div>
+            )}
+
+            {siteConfig.aboutImage3 && (
+              <div 
+                onClick={() => setSelectedImage(siteConfig.aboutImage3)} 
+                className="w-full bg-white rounded-2xl border-2 border-slate-300 overflow-hidden shadow-xl cursor-pointer group p-2 hover:border-cyan-500 transition"
+              >
+                <img src={siteConfig.aboutImage3} alt="Chi Siamo 3" className="w-full h-auto object-cover rounded-xl" />
+                <div className="text-center py-2 text-xs font-mono font-bold text-slate-500 group-hover:text-cyan-600">🔍 Clicca per ingrandire a schermo intero</div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Vetrina Prodotti - Foto a Larghezza Massima in colonna singola */}
+      <section id="products" className="py-16 sm:py-24 px-4 sm:px-6 border-t border-slate-200 bg-[#f8fafc] z-10 relative w-full box-border">
+        <div className="max-w-3xl mx-auto w-full">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-[11px] font-mono font-bold text-cyan-600 uppercase tracking-widest bg-cyan-50 border border-cyan-200/60 px-3 py-1 rounded-md">{text.productsTag}</span>
+            <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">{text.productsTitle}</h2>
+            <p className="mt-2 text-slate-600 text-xs sm:text-sm">{text.productsDesc}</p>
+          </div>
+
+          {productsGallery.length === 0 ? (
+            <div className="text-center py-12 text-slate-400 font-mono text-xs sm:text-sm border border-dashed border-slate-300 rounded-2xl bg-white">
+              [ Nessun prodotto caricato nella vetrina. Aggiungili dal pannello Admin ]
+            </div>
+          ) : (
+            <div className="flex flex-col gap-10 w-full">
+              {productsGallery.map((item) => {
+                const priceEur = Number(item.price) || 0
+                const priceUsd = (priceEur * EUR_TO_USD_RATE).toFixed(2)
+
+                return (
+                  <div key={item.id} className="bg-white rounded-3xl overflow-hidden border-2 border-slate-300 hover:border-cyan-500 shadow-2xl transition-all duration-300 flex flex-col w-full p-3 sm:p-4">
+                    <div 
+                      onClick={() => setSelectedImage(item.image_url)}
+                      className="w-full bg-slate-950/5 overflow-hidden rounded-2xl cursor-pointer relative p-2 flex items-center justify-center border border-slate-100"
+                    >
+                      {/* h-auto e w-full garantiscono che l'immagine mantenga le sue proporzioni reali senza tagli o compressioni */}
+                      <img src={item.image_url} alt={item.title} className="w-full h-auto object-cover rounded-xl group-hover:scale-101 transition duration-300" />
+                    </div>
+                    
+                    <div className="p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                      <h3 className="text-lg sm:text-xl font-extrabold text-slate-900">{item.title}</h3>
+                      
+                      <div className="flex items-center justify-between w-full sm:w-auto gap-4 pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                        <div className="font-mono text-base font-bold text-slate-800">
+                          <span className="text-cyan-600 font-black text-xl">€ {priceEur.toFixed(2)}</span>
+                          <span className="text-slate-400 ml-2 font-normal text-xs">($ {priceUsd})</span>
+                        </div>
+                        <a href="#contact" className="px-5 py-2.5 bg-slate-900 hover:bg-cyan-600 text-white text-xs font-mono font-bold rounded-xl transition uppercase tracking-wider shadow-md">
+                          {text.moreInfo}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Contatti */}
+      <section id="contact" className="py-16 sm:py-24 px-4 sm:px-6 border-t border-slate-200 bg-white z-10 relative w-full box-border">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-start">
+          <div>
+            <span className="text-[11px] font-mono font-bold text-cyan-600 uppercase tracking-widest bg-cyan-50 border border-cyan-200/60 px-3 py-1 rounded-md">{text.contactTag}</span>
+            <h2 className="mt-3 text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{text.contactTitle}</h2>
+            <p className="mt-3 text-slate-600 text-xs sm:text-sm leading-relaxed">{text.contactDesc}</p>
+            <div className="mt-6 space-y-3 text-slate-700 text-xs font-mono">
+              <p className="flex items-center gap-2">📍 <strong className="text-slate-900">{text.addressLabel}</strong> {siteConfig.address}</p>
+              <p className="flex items-center gap-2">📧 <strong className="text-slate-900">{text.emailLabel}</strong> {siteConfig.email}</p>
+              <p className="flex items-center gap-2">📞 <strong className="text-slate-900">{text.phoneLabel}</strong> {siteConfig.phone}</p>
+              <p className="flex items-center gap-2">📋 <strong className="text-slate-900">{text.fiscalLabel}</strong> {siteConfig.taxId} — {siteConfig.fiscalCode}</p>
+            </div>
+          </div>
+
+          <div className="bg-slate-50 p-5 sm:p-8 rounded-xl border border-slate-200 shadow-2xs w-full box-border">
+            <form onSubmit={handleWhatsAppSubmit} className="space-y-3.5 font-mono">
+              <div>
+                <label className="block text-[10px] sm:text-[11px] font-bold text-slate-600 uppercase mb-1">{text.formName} *</label>
+                <input 
+                  type="text" 
+                  required
+                  placeholder={text.formName} 
+                  value={formData.name}
+                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  className="w-full bg-white border border-slate-200 rounded-md px-3.5 py-2.5 text-slate-900 text-xs focus:outline-none focus:border-cyan-500" 
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] sm:text-[11px] font-bold text-slate-600 uppercase mb-1">{text.formEmail}</label>
+                <input 
+                  type="email" 
+                  placeholder={text.formEmail} 
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  className="w-full bg-white border border-slate-200 rounded-md px-3.5 py-2.5 text-slate-900 text-xs focus:outline-none focus:border-cyan-500" 
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] sm:text-[11px] font-bold text-slate-600 uppercase mb-1">{text.formPhone} *</label>
+                <input 
+                  type="tel" 
+                  required
+                  placeholder="+39 333 1234567" 
+                  value={formData.phone}
+                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                  className="w-full bg-white border border-slate-200 rounded-md px-3.5 py-2.5 text-slate-900 text-xs focus:outline-none focus:border-cyan-500" 
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] sm:text-[11px] font-bold text-slate-600 uppercase mb-1">{text.formMessage} *</label>
+                <textarea 
+                  rows={3} 
+                  required
+                  placeholder={text.formMessage} 
+                  value={formData.message}
+                  onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  className="w-full bg-white border border-slate-200 rounded-md px-3.5 py-2.5 text-slate-900 text-xs focus:outline-none focus:border-cyan-500"
+                ></textarea>
+              </div>
+
+              <button 
+                type="submit" 
+                className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-md text-xs uppercase tracking-wider transition shadow-md flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <span>💬 {text.formSubmit}</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* Lightbox Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-3 cursor-pointer"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-5xl max-h-[90vh] w-full flex items-center justify-center">
+            <img src={selectedImage} alt="Ingrandimento High-Tech" className="max-w-full max-h-[85vh] rounded-2xl object-contain border-2 border-slate-400 shadow-2xl bg-white p-3" />
+            <button 
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-12 right-0 text-slate-900 font-mono font-bold text-xs bg-white px-4 py-2 rounded-lg border border-slate-300 shadow-lg"
+            >
+              ✕ [ CHIUDI ]
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Footer */}
+      <footer className="border-t border-slate-200 py-8 px-4 bg-white text-center text-slate-500 text-[11px] font-mono space-y-2 z-10 relative w-full box-border">
+        <p className="text-slate-700 font-semibold">{siteConfig.companyName} &bull; {siteConfig.address}</p>
+        <p className="text-[10px] text-slate-400">&copy; 2026 {siteConfig.companyName}. {text.rights}</p>
+      </footer>
+    </div>
+  )
+}
