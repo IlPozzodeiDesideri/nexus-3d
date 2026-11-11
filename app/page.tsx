@@ -13,7 +13,6 @@ type GalleryItem = {
   price: number
 }
 
-// Tasso di cambio indicativo EUR -> USD
 const EUR_TO_USD_RATE = 1.10
 
 export default function Home() {
@@ -178,7 +177,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Chi Siamo */}
+      {/* Chi Siamo - Griglia Immagini Cornici Massimizzate */}
       <section id="about" className="py-24 px-6 border-t border-slate-200 bg-white/70 backdrop-blur-md z-10 relative">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
@@ -201,36 +200,36 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-4">
             <div 
               onClick={() => siteConfig.aboutImage && setSelectedImage(siteConfig.aboutImage)} 
-              className="h-64 col-span-2 rounded-xl border border-slate-200/90 overflow-hidden bg-slate-100/80 backdrop-blur-sm cursor-pointer group relative flex items-center justify-center p-3 shadow-xs hover:border-cyan-400 transition"
+              className="col-span-2 aspect-[16/9] w-full rounded-2xl border-2 border-slate-200 bg-slate-950/5 cursor-pointer group relative overflow-hidden shadow-md hover:border-cyan-500 transition-all duration-300 p-2 flex items-center justify-center"
             >
               {siteConfig.aboutImage ? (
                 <>
-                  <img src={siteConfig.aboutImage} alt="Chi Siamo 1" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
-                  <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ FULLSCAN ]</div>
+                  <img src={siteConfig.aboutImage} alt="Chi Siamo 1" className="w-full h-full object-contain rounded-xl group-hover:scale-102 transition duration-300" />
+                  <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs rounded-xl">🔍 [ INGRANDISCI ]</div>
                 </>
               ) : <div className="text-slate-400 font-mono text-xs">{text.showroomText} 01</div>}
             </div>
 
             <div 
               onClick={() => siteConfig.aboutImage2 && setSelectedImage(siteConfig.aboutImage2)} 
-              className="h-44 rounded-xl border border-slate-200/90 overflow-hidden bg-slate-100/80 backdrop-blur-sm cursor-pointer group relative flex items-center justify-center p-3 shadow-xs hover:border-cyan-400 transition"
+              className="aspect-[4/3] w-full rounded-2xl border-2 border-slate-200 bg-slate-950/5 cursor-pointer group relative overflow-hidden shadow-md hover:border-cyan-500 transition-all duration-300 p-2 flex items-center justify-center"
             >
               {siteConfig.aboutImage2 ? (
                 <>
-                  <img src={siteConfig.aboutImage2} alt="Chi Siamo 2" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
-                  <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ FULLSCAN ]</div>
+                  <img src={siteConfig.aboutImage2} alt="Chi Siamo 2" className="w-full h-full object-contain rounded-xl group-hover:scale-102 transition duration-300" />
+                  <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs rounded-xl">🔍 [ INGRANDISCI ]</div>
                 </>
               ) : <div className="text-slate-400 font-mono text-xs">{text.showroomText} 02</div>}
             </div>
 
             <div 
               onClick={() => siteConfig.aboutImage3 && setSelectedImage(siteConfig.aboutImage3)} 
-              className="h-44 rounded-xl border border-slate-200/90 overflow-hidden bg-slate-100/80 backdrop-blur-sm cursor-pointer group relative flex items-center justify-center p-3 shadow-xs hover:border-cyan-400 transition"
+              className="aspect-[4/3] w-full rounded-2xl border-2 border-slate-200 bg-slate-950/5 cursor-pointer group relative overflow-hidden shadow-md hover:border-cyan-500 transition-all duration-300 p-2 flex items-center justify-center"
             >
               {siteConfig.aboutImage3 ? (
                 <>
-                  <img src={siteConfig.aboutImage3} alt="Chi Siamo 3" className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
-                  <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ FULLSCAN ]</div>
+                  <img src={siteConfig.aboutImage3} alt="Chi Siamo 3" className="w-full h-full object-contain rounded-xl group-hover:scale-102 transition duration-300" />
+                  <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs rounded-xl">🔍 [ INGRANDISCI ]</div>
                 </>
               ) : <div className="text-slate-400 font-mono text-xs">{text.showroomText} 03</div>}
             </div>
@@ -238,9 +237,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Vetrina Prodotti Dinamica con Prezzo EUR (€) e USD ($) */}
+      {/* Vetrina Prodotti - Griglia a Cornice Massimizzata */}
       <section id="products" className="py-24 px-6 border-t border-slate-200 bg-[#f8fafc] z-10 relative">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-[11px] font-mono font-bold text-cyan-600 uppercase tracking-widest bg-cyan-50 border border-cyan-200/60 px-3 py-1 rounded-md">{text.productsTag}</span>
             <h2 className="mt-4 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">{text.productsTitle}</h2>
@@ -252,29 +251,29 @@ export default function Home() {
               [ Nessun prodotto caricato nella vetrina. Aggiungili dal pannello Admin ]
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {productsGallery.map((item) => {
                 const priceEur = Number(item.price) || 0
                 const priceUsd = (priceEur * EUR_TO_USD_RATE).toFixed(2)
 
                 return (
-                  <div key={item.id} className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-2xs hover:shadow-md transition flex flex-col group">
+                  <div key={item.id} className="bg-white rounded-2xl overflow-hidden border-2 border-slate-200/80 hover:border-cyan-500 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col group">
+                    {/* Contenitore Cornice ad ampio respiro visivo */}
                     <div 
                       onClick={() => setSelectedImage(item.image_url)}
-                      className="h-64 bg-slate-50 overflow-hidden flex items-center justify-center cursor-pointer relative p-4 border-b border-slate-100"
+                      className="w-full aspect-[4/3] bg-slate-950/5 overflow-hidden flex items-center justify-center cursor-pointer relative p-3 border-b border-slate-100"
                     >
-                      <img src={item.image_url} alt={item.title} className="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" />
-                      <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ INGRANDISCI ]</div>
+                      <img src={item.image_url} alt={item.title} className="w-full h-full object-contain group-hover:scale-105 transition duration-300" />
+                      <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-mono text-white font-bold backdrop-blur-2xs">🔍 [ INGRANDISCI ]</div>
                     </div>
                     
-                    <div className="p-4 flex flex-col gap-2 flex-grow">
-                      <h3 className="text-sm font-bold text-slate-900">{item.title}</h3>
+                    <div className="p-4 flex flex-col gap-2 flex-grow justify-between">
+                      <h3 className="text-sm font-bold text-slate-900 line-clamp-1">{item.title}</h3>
                       
-                      {/* Badge Prezzo in Doppia Valuta (€ e $) */}
-                      <div className="mt-auto pt-2 flex items-center justify-between border-t border-slate-100">
+                      <div className="pt-2 flex items-center justify-between border-t border-slate-100">
                         <div className="font-mono text-xs font-bold text-slate-800">
                           <span className="text-cyan-600 font-extrabold text-sm">€ {priceEur.toFixed(2)}</span>
-                          <span className="text-slate-400 ml-2 font-normal text-[11px]">($ {priceUsd})</span>
+                          <span className="text-slate-400 ml-1.5 font-normal text-[11px]">($ {priceUsd})</span>
                         </div>
                         <a href="#contact" className="text-cyan-600 text-xs font-mono font-bold hover:text-cyan-700">
                           {text.moreInfo}
