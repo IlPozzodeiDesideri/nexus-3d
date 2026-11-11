@@ -83,7 +83,7 @@ export default function Home() {
 
     const whatsappNumber = siteConfig.phone.replace(/[^0-9+]/g, '') || '393891234567'
     const textMessage = encodeURIComponent(
-      `Salve ${siteConfig.companyName},\n\nNome: ${formData.name}\nEmail:${formData.email}\nCellulare: ${formData.phone}\n\nSpecifiche Progetto:\n${formData.message}`
+      `Salve ${siteConfig.companyName},\n\nNome: ${formData.name}\nEmail: ${formData.email}\nCellulare: ${formData.phone}\n\nSpecifiche Progetto:\n${formData.message}`
     )
 
     window.open(`https://wa.me/${whatsappNumber}?text=${textMessage}`, '_blank')
@@ -104,4 +104,92 @@ export default function Home() {
   const isRtl = lang === 'ar'
 
   return (
-    <div className={`min-h-screen bg-[#f4f6f9] text-
+    <div className={`min-h-screen bg-[#f4f6f9] text-slate-800 font-sans selection:bg-cyan-500 selection:text-white w-full max-w-full overflow-x-hidden box-border ${isRtl ? 'rtl' : 'ltr'}`} dir={isRtl ? 'rtl' : 'ltr'}>
+      {/* Header */}
+      <header className="border-b border-slate-200/80 bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-xs w-full">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-3 flex justify-between items-center flex-wrap gap-2 relative z-10">
+          <Link href="/" className="flex items-center gap-2 group">
+            <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse"></span>
+            <span className="text-lg sm:text-2xl font-black tracking-widest bg-gradient-to-r from-slate-900 via-indigo-950 to-cyan-600 bg-clip-text text-transparent uppercase">
+              {siteConfig.companyName}
+            </span>
+          </Link>
+          
+          <nav className="hidden lg:flex gap-8 text-xs font-mono font-bold tracking-wider text-slate-600 uppercase">
+            <a href="#home" className="hover:text-cyan-600 transition">{text.navHome}</a>
+            <a href="#about" className="hover:text-cyan-600 transition">{text.navAbout}</a>
+            <a href="#products" className="hover:text-cyan-600 transition">{text.navProducts}</a>
+            <a href="#contact" className="hover:text-cyan-600 transition">{text.navContact}</a>
+          </nav>
+
+          <div className="flex items-center gap-2 flex-wrap">
+            <select
+              value={lang}
+              onChange={(e) => setLang(e.target.value as Language)}
+              className="bg-slate-100 border border-slate-300 text-slate-700 text-[11px] sm:text-xs rounded px-2 py-1.5 font-mono font-medium focus:outline-none focus:border-cyan-500 cursor-pointer"
+            >
+              <option value="it">🇮🇹 IT</option>
+              <option value="en">🇬🇧 EN</option>
+              <option value="es">🇪🇸 ES</option>
+              <option value="fr">🇫🇷 FR</option>
+              <option value="de">🇩🇪 DE</option>
+              <option value="ar">🇸🇦 AR</option>
+            </select>
+
+            <Link href="/admin" className="text-[11px] sm:text-xs font-mono font-bold text-slate-700 hover:text-cyan-600 border border-slate-300 bg-white px-2.5 py-1.5 rounded transition shadow-2xs">
+              ⚙️ Admin
+            </Link>
+
+            <a href="#contact" className="hidden sm:inline-block px-3 py-1.5 bg-slate-900 hover:bg-cyan-600 text-white text-xs font-mono font-bold rounded transition">
+              {text.requestQuote}
+            </a>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section id="home" className="relative py-28 sm:py-36 px-4 sm:px-6 text-center overflow-hidden z-10 w-full box-border">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=2000&q=80" 
+            alt="3D Printing Lab Background" 
+            className="w-full h-full object-cover object-center scale-105"
+          />
+          <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-[2px]"></div>
+        </div>
+
+        <div className="max-w-4xl mx-auto relative z-10">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[10px] sm:text-[11px] font-mono font-bold text-cyan-300 bg-cyan-950/80 border border-cyan-500/40 rounded-full shadow-lg mb-6 backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+            {text.badge}
+          </span>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-[1.15] drop-shadow-md">
+            {text.heroTitle1} <br />
+            <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-350 bg-clip-text text-transparent">
+              {text.heroTitle2}
+            </span>
+          </h1>
+          <p className="mt-6 text-sm sm:text-base md:text-lg text-slate-200 max-w-2xl mx-auto font-normal leading-relaxed drop-shadow">{text.heroDesc}</p>
+          <div className="mt-8 flex justify-center gap-3 flex-wrap font-mono">
+            <a href="#products" className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-extrabold rounded-lg transition shadow-xl uppercase tracking-wider">{text.exploreProducts}</a>
+            <a href="#contact" className="px-6 py-3 bg-slate-900/80 hover:bg-slate-800 text-white text-xs font-bold rounded-lg border border-slate-700 transition shadow-xl uppercase tracking-wider backdrop-blur-md">{text.contactUs}</a>
+          </div>
+        </div>
+      </section>
+
+      {/* Chi Siamo - Foto Enormi a Singola Colonna */}
+      <section id="about" className="py-16 sm:py-24 px-4 sm:px-6 border-t border-slate-200 bg-white/70 backdrop-blur-md z-10 relative w-full box-border">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
+          <div>
+            <span className="text-[11px] font-mono font-bold text-cyan-600 uppercase tracking-widest bg-cyan-50 border border-cyan-200/60 px-3 py-1 rounded-md">{text.aboutTag}</span>
+            <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">{text.aboutTitle}</h2>
+            <p className="mt-3 text-slate-600 leading-relaxed text-xs sm:text-sm md:text-base">{text.aboutDesc}</p>
+            
+            <div className="mt-6 grid grid-cols-2 gap-3 font-mono">
+              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 shadow-2xs">
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900">{text.yearsExp}</h3>
+                <p className="text-[10px] sm:text-xs text-slate-500 mt-1 uppercase font-semibold">{text.yearsExpDesc}</p>
+              </div>
+              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 shadow-2xs">
+                <h3 className="text-xl sm:text-2xl font-black text-cyan-600">{text.craftsmanship}</h3>
+                <p className="
